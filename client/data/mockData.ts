@@ -1,3 +1,14 @@
+export const farmers = [
+  { id: "farmer-001", mobile: "9876543210", name: "Ramesh Kumar", role: "farmer" as const },
+  { id: "farmer-002", mobile: "9123456789", name: "Sita Bai", role: "farmer" as const },
+];
+
+export const staffCredentials = {
+  admin: [{ id: "ADM1001", password: "admin123", name: "District Administrator" }],
+  officer: [{ id: "240501", password: "officer123", name: "Procurement Officer" }],
+  operator: [{ id: "240701", password: "operator123", name: "Centre Operator" }],
+};
+
 export const farmer = {
   id: "farmer-001",
   kisaanCode: "KIS-24-05821",
