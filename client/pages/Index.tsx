@@ -1,62 +1,58 @@
-import { DemoResponse } from "@shared/api";
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  ArrowRight, Bell, CalendarDays, Check, ChevronDown, CircleHelp, Clock3,
+  Download, FileText, IndianRupee, Languages, Leaf, Menu, MessageSquare,
+  Minus, PackageCheck, Phone, Plus, QrCode, Search, ShieldCheck, UserRound,
+  Warehouse, X
+} from "lucide-react";
+import { activeSlot, centres, currentToken, farmer, govPolicy, notifications, procurementRecords } from "@/data/mockData";
+
+const totalEligible = farmer.verifiedLandArea * govPolicy.procurementLimitPerAcre;
+const procured = procurementRecords.reduce((sum, record) => sum + record.quantity, 0);
+const remaining = totalEligible - procured;
+
+function PortalHeader({ onMenu }: { onMenu: () => void }) {
+  return <>
+    <div className="tricolor" />
+    <div className="utility-bar"><div className="page-wrap utility-inner"><span>भारत सरकार | Government of India</span><div className="utility-actions"><button><Languages size={14} /> हिंदी</button><span className="utility-divider" /><button className="font-button">A−</button><button className="font-button active">A</button><button className="font-button">A+</button><span className="utility-divider" /><button><CircleHelp size={14} /> Help</button></div></div></div>
+    <header className="site-header"><div className="page-wrap header-inner"><button className="mobile-menu" onClick={onMenu} aria-label="Open menu"><Menu /></button><div className="brand-mark"><div className="emblem"><Leaf size={25} /></div><div><p className="brand-kicker">Department of Food & Civil Supplies</p><h1>ई-उपार्जन <span>e-Uparjan</span></h1></div></div><div className="header-tools"><div className="helpline"><Phone size={16} /><div><span>Farmer helpline</span><strong>1800-233-4250</strong></div></div><div className="profile-pill"><div className="avatar">RK</div><div className="profile-copy"><strong>{farmer.name}</strong><span>{farmer.kisaanCode}</span></div><ChevronDown size={16} /></div></div></div></header>
+  </>;
+}
+
+function SideNav({ active, onSelect, open }: { active: string; onSelect: (value: string) => void; open: boolean }) {
+  const items = [["dashboard", "Overview", Leaf], ["slot", "My Slot", CalendarDays], ["token", "Token status", QrCode], ["payments", "Payments", IndianRupee], ["notifications", "Notifications", Bell]] as const;
+  return <aside className={`side-nav ${open ? "open" : ""}`}><div className="nav-label">MY e-UPARJAN</div>{items.map(([key, label, Icon]) => <button key={key} className={active === key ? "nav-item active" : "nav-item"} onClick={() => onSelect(key)}><Icon size={18} /><span>{label}</span>{key === "notifications" && <b className="nav-count">2</b>}</button>)}<div className="nav-separator" /><div className="nav-label">QUICK LINKS</div><button className="nav-item"><FileText size={18} /><span>Download forms</span><ArrowRight size={14} className="nav-arrow" /></button><button className="nav-item"><CircleHelp size={18} /><span>Help & support</span><ArrowRight size={14} className="nav-arrow" /></button><div className="side-footer"><ShieldCheck size={18} /><span>Your data is protected<br />under government policy</span></div></aside>;
+}
+
+function StatCard({ label, value, detail, icon: Icon, tone = "navy" }: { label: string; value: string; detail?: React.ReactNode; icon: typeof Leaf; tone?: string }) {
+  return <div className={`stat-card ${tone}`}><div className="stat-top"><span>{label}</span><Icon size={19} /></div><strong>{value}</strong>{detail && <div className="stat-detail">{detail}</div>}</div>;
+}
+
+function Dashboard({ onSelect }: { onSelect: (value: string) => void }) {
+  const [showAll, setShowAll] = useState(false);
+  const [slotNotice, setSlotNotice] = useState(false);
+  return <>
+    <div className="welcome-row"><div><div className="breadcrumb"><span>Home</span><ArrowRight size={13} /><strong>Farmer dashboard</strong></div><h2>Good morning, Ramesh <span>👋</span></h2><p>Here is the latest update on your wheat procurement.</p></div><button className="outline-button" onClick={() => onSelect("slot")}><Plus size={16} /> Book a new slot</button></div>
+    {slotNotice && <div className="toast-message"><Check size={17} /><span><strong>Slot booking started.</strong> Select a centre to continue.</span><button onClick={() => setSlotNotice(false)}><X size={16} /></button></div>}
+    <section className="section-heading"><div><span className="eyebrow">YOUR ELIGIBILITY</span><h3>Procurement overview</h3></div><span className="season-chip"><Leaf size={14} /> Rabi 2024-25</span></section>
+    <div className="stat-grid"><StatCard label="Kisaan code" value={farmer.kisaanCode} detail={<span className="muted-detail">Verified farmer ID</span>} icon={UserRound} tone="navy" /><StatCard label="Verified land area" value={`${farmer.verifiedLandArea} acres`} detail={<span className="muted-detail"><Check size={13} /> Land verified</span>} icon={Leaf} tone="green" /><StatCard label="Procurement limit / acre" value={`${govPolicy.procurementLimitPerAcre} q`} detail={<span className="muted-detail">Wheat · MSP ₹{govPolicy.msp.toLocaleString("en-IN")}</span>} icon={Warehouse} tone="sand" /><StatCard label="Total eligible quantity" value={`${totalEligible} q`} detail={<span className="formula">{farmer.verifiedLandArea} acres × {govPolicy.procurementLimitPerAcre} q</span>} icon={PackageCheck} tone="orange" /></div>
+    <div className="content-grid"><section className="panel eligibility-panel"><div className="panel-header"><div><span className="eyebrow">QUANTITY TRACKER</span><h3>Your procurement balance</h3></div><span className="balance-badge">{remaining} q remaining</span></div><div className="balance-main"><div className="ring-progress"><div className="ring-inner"><strong>{Math.round((procured / totalEligible) * 100)}%</strong><span>procured</span></div></div><div className="balance-stats"><div><span>Already procured</span><strong>{procured} q</strong></div><div><span>Remaining eligible</span><strong className="green-text">{remaining} q</strong></div><div><span>At current MSP</span><strong>₹{(remaining * govPolicy.msp).toLocaleString("en-IN")}</strong></div></div></div><div className="progress-line"><div style={{ width: `${(procured / totalEligible) * 100}%` }} /></div><p className="panel-note">You can procure up to <strong>{remaining} quintals</strong> more this season.</p><button className="primary-button wide" onClick={() => setSlotNotice(true)}>Book procurement slot <ArrowRight size={16} /></button></section>
+      <section className="panel slot-panel"><div className="panel-header"><div><span className="eyebrow">CURRENT SLOT</span><h3>Slot is active</h3></div><span className="status-pill active"><span /> Active</span></div><div className="slot-date"><div className="calendar-icon"><CalendarDays size={20} /></div><div><span>Valid from</span><strong>{activeSlot.startDate} — {activeSlot.endDate}</strong></div></div><div className="days-box"><div><Clock3 size={17} /><span>Days remaining</span></div><strong>{activeSlot.daysRemaining}<small> of 9</small></strong></div><div className="slot-centre"><Warehouse size={18} /><div><span>Assigned centre</span><strong>{centres[0].name}</strong><small>{centres[0].address}</small></div></div><button className="text-button" onClick={() => onSelect("slot")}>View slot details <ArrowRight size={15} /></button></section></div>
+    <section className="panel token-panel"><div className="panel-header"><div><span className="eyebrow">TODAY'S TOKEN STATUS</span><h3>You can come now</h3></div><span className="status-pill approved"><Check size={13} /> Approved</span></div><div className="token-body"><div className="token-icon"><QrCode size={31} /></div><div className="token-copy"><strong>{currentToken.requestedDate}</strong><span>{centres[0].name} · Expected quantity {currentToken.expectedQuantity} q</span><p>Your token has been approved by the Procurement Officer. Please carry your Kisaan Code and arrive on time.</p></div><button className="outline-button" onClick={() => onSelect("token")}>View token <ArrowRight size={16} /></button></div></section>
+    <section className="panel history-panel"><div className="panel-header"><div><span className="eyebrow">RECENT ACTIVITY</span><h3>Procurement history</h3></div><button className="text-button" onClick={() => setShowAll(!showAll)}>{showAll ? "Show less" : "View all history"} <ArrowRight size={15} /></button></div><div className="table-wrap"><table><thead><tr><th>Date</th><th>Centre</th><th>Quantity</th><th>Payment</th><th /></tr></thead><tbody>{(showAll ? [...procurementRecords, ...procurementRecords] : procurementRecords).map((record, index) => <tr key={`${record.id}-${index}`}><td><strong>{record.date}</strong></td><td>{record.centre}</td><td><strong>{record.quantity} q</strong></td><td><span className={`payment-status ${record.paymentStatus === "Paid" ? "paid" : "pending"}`}><span />{record.paymentStatus}</span></td><td><button className="download-icon" aria-label="Download receipt"><Download size={16} /></button></td></tr>)}</tbody></table></div></section>
+  </>;
+}
+
+function DetailView({ view, onBack }: { view: string; onBack: () => void }) {
+  const titles: Record<string, [string, string]> = { slot: ["My slot", "Your active 9-day procurement window"], token: ["Token status", "Your current visit permission"], payments: ["Payments", "Track your procurement payments"], notifications: ["Notifications", "Updates from e-Uparjan"] };
+  const [title, subtitle] = titles[view] || titles.slot;
+  return <div className="detail-view"><div className="breadcrumb"><button onClick={onBack}>Dashboard</button><ArrowRight size={13} /><strong>{title}</strong></div><div className="detail-heading"><div><span className="eyebrow">FARMER SERVICES</span><h2>{title}</h2><p>{subtitle}</p></div><button className="outline-button" onClick={onBack}>Back to overview</button></div>{view === "slot" && <div className="detail-card hero-detail"><div className="detail-icon green-bg"><CalendarDays size={26} /></div><div><span className="status-pill active">Active</span><h3>Slot valid for 6 more days</h3><p>Your procurement window is open from <strong>18 Mar 2024</strong> to <strong>26 Mar 2024</strong>.</p><div className="detail-meta"><span><Warehouse size={16} /> {centres[0].name}</span><span><PackageCheck size={16} /> Intended quantity: 80 q</span></div></div></div>}{view === "token" && <div className="detail-card hero-detail"><div className="detail-icon navy-bg"><QrCode size={26} /></div><div><span className="status-pill approved"><Check size={13} /> Approved</span><h3>You can come now</h3><p>Visit the centre on <strong>21 Mar 2024</strong> with your Kisaan Code. Keep this token ready at the gate.</p><div className="detail-meta"><span><Warehouse size={16} /> {centres[0].address}</span><span><PackageCheck size={16} /> Expected quantity: 40 q</span></div></div><div className="qr-placeholder"><QrCode size={62} /><small>TOKEN-001</small></div></div>}{view === "payments" && <div className="detail-card payments-detail"><div className="payment-summary"><div><span>Total paid</span><strong>₹1,02,375</strong></div><div><span>Payment pending</span><strong className="orange-text">₹79,625</strong></div></div><div className="table-wrap"><table><thead><tr><th>Date</th><th>Quantity</th><th>MSP</th><th>Amount</th><th>Status</th></tr></thead><tbody>{procurementRecords.map(record => <tr key={record.id}><td>{record.date}</td><td>{record.quantity} q</td><td>₹{govPolicy.msp.toLocaleString("en-IN")}</td><td><strong>₹{record.amount.toLocaleString("en-IN")}</strong></td><td><span className={`payment-status ${record.paymentStatus === "Paid" ? "paid" : "pending"}`}><span />{record.paymentStatus}</span></td></tr>)}</tbody></table></div></div>}{view === "notifications" && <div className="notification-list">{notifications.map(note => <div className={`notification-item ${note.unread ? "unread" : ""}`} key={note.title}><div className={`notification-channel ${note.channel.toLowerCase().replace("-", "")}`}><MessageSquare size={18} /></div><div><strong>{note.title}</strong><p>{note.message}</p><span>{note.channel} · {note.time}</span></div>{note.unread && <span className="unread-dot" />}</div>)}</div>}</div>;
+}
 
 export default function Index() {
-  const [exampleFromServer, setExampleFromServer] = useState("");
-  // Fetch users on component mount
-  useEffect(() => {
-    fetchDemo();
-  }, []);
-
-  // Example of how to fetch data from the server (if needed)
-  const fetchDemo = async () => {
-    try {
-      const response = await fetch("/api/demo");
-      const data = (await response.json()) as DemoResponse;
-      setExampleFromServer(data.message);
-    } catch (error) {
-      console.error("Error fetching hello:", error);
-    }
-  };
-
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200">
-      <div className="text-center">
-        {/* TODO: FUSION_GENERATION_APP_PLACEHOLDER replace everything here with the actual app! */}
-        <h1 className="text-2xl font-semibold text-slate-800 flex items-center justify-center gap-3">
-          <svg
-            className="animate-spin h-8 w-8 text-slate-400"
-            viewBox="0 0 50 50"
-          >
-            <circle
-              className="opacity-30"
-              cx="25"
-              cy="25"
-              r="20"
-              stroke="currentColor"
-              strokeWidth="5"
-              fill="none"
-            />
-            <circle
-              className="text-slate-600"
-              cx="25"
-              cy="25"
-              r="20"
-              stroke="currentColor"
-              strokeWidth="5"
-              fill="none"
-              strokeDasharray="100"
-              strokeDashoffset="75"
-            />
-          </svg>
-          Generating your app...
-        </h1>
-        <p className="mt-4 text-slate-600 max-w-md">
-          Watch the chat on the left for updates that might need your attention
-          to finish generating
-        </p>
-        <p className="mt-4 hidden max-w-md">{exampleFromServer}</p>
-      </div>
-    </div>
-  );
+  const [active, setActive] = useState("dashboard");
+  const [menuOpen, setMenuOpen] = useState(false);
+  const content = useMemo(() => active === "dashboard" ? <Dashboard onSelect={setActive} /> : <DetailView view={active} onBack={() => setActive("dashboard")} />, [active]);
+  return <div className="portal"><PortalHeader onMenu={() => setMenuOpen(!menuOpen)} /><div className="portal-layout page-wrap"><SideNav active={active} onSelect={(value) => { setActive(value); setMenuOpen(false); }} open={menuOpen} /><main className="main-content">{content}</main></div><footer className="site-footer"><div className="page-wrap footer-inner"><div><strong>e-Uparjan</strong><span>Smart Procurement & Token Management System · SIH26032</span></div><div className="footer-links"><Link to="/">Terms</Link><Link to="/">Privacy</Link><Link to="/">Sitemap</Link><Link to="/">Contact</Link></div><span>Last updated: 18 March 2024</span></div></footer><div className="footer-helpline"><Phone size={15} /> Farmer Helpline <strong>1800-233-4250</strong><span>Available 8:00 AM – 8:00 PM</span></div></div>;
 }

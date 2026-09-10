@@ -14,6 +14,14 @@ export default {
     },
     extend: {
       colors: {
+        portal: {
+          navy: "#102a43",
+          "navy-deep": "#0b2034",
+          green: "#138a57",
+          "green-dark": "#0b7145",
+          cream: "#f7f9f7",
+          orange: "#ee8b35",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

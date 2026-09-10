@@ -1,27 +1,5 @@
-import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
-const NotFound = () => {
-  const location = useLocation();
-
-  useEffect(() => {
-    console.error(
-      "404 Error: User attempted to access non-existent route:",
-      location.pathname,
-    );
-  }, [location.pathname]);
-
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">404</h1>
-        <p className="text-xl text-gray-600 mb-4">Oops! Page not found</p>
-        <a href="/" className="text-blue-500 hover:text-blue-700 underline">
-          Return to Home
-        </a>
-      </div>
-    </div>
-  );
-};
-
-export default NotFound;
+export default function NotFound() {
+  return <div className="min-h-screen bg-[#f7f9f7] flex items-center justify-center p-6"><div className="max-w-md text-center bg-white border border-[#dfe8e3] rounded-lg p-10"><div className="text-[#138a57] text-sm font-bold uppercase tracking-widest">e-Uparjan</div><h1 className="text-5xl font-bold text-[#102a43] mt-3">404</h1><p className="text-[#6a7b83] mt-3">This page is not available in the farmer portal.</p><Link className="inline-flex mt-6 bg-[#138a57] text-white rounded px-4 py-2 text-sm font-bold" to="/">Return to dashboard</Link></div></div>;
+}
