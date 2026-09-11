@@ -45,13 +45,19 @@ export const activeSlot = {
   status: "Active" as const,
 };
 
-export const currentToken = {
-  id: "token-001",
-  centreId: "centre-01",
-  requestedDate: "21 Mar 2024",
-  expectedQuantity: 40,
-  status: "Approved" as const,
-};
+export type TokenStatus = "Waiting for Approval" | "Approved" | "Long Queue Ahead" | "Cancelled" | "No-show" | "Completed";
+
+export const tokens = [
+  { id: "token-001", tokenNumber: "TKN-centre-01-2024-03-21-0452", shortReference: "T-0452", slotId: "slot-001", farmerId: "farmer-001", centreId: "centre-01", requestedDate: "21 Mar 2024", expectedQuantity: 40, status: "Approved" as TokenStatus, batchId: "batch-001", createdAt: "20 Mar 2024, 09:30 AM", approvedAt: "20 Mar 2024, 02:10 PM", completedAt: null },
+  { id: "token-002", tokenNumber: "TKN-centre-01-2024-03-21-0453", shortReference: "T-0453", slotId: "slot-002", farmerId: "farmer-002", centreId: "centre-01", requestedDate: "21 Mar 2024", expectedQuantity: 55, status: "Waiting for Approval" as TokenStatus, batchId: null, createdAt: "20 Mar 2024, 10:15 AM", approvedAt: null, completedAt: null },
+];
+
+export const currentToken = tokens[0];
+
+export const payments = [
+  { id: "payment-01", procurementRecordId: "record-01", farmerId: "farmer-001", centreId: "centre-01", actualQuantity: 45, msp: 2275, amount: 102375, status: "Paid" as const, date: "14 Mar 2024" },
+  { id: "payment-02", procurementRecordId: "record-02", farmerId: "farmer-001", centreId: "centre-01", actualQuantity: 35, msp: 2275, amount: 79625, status: "Payment Pending" as const, date: "08 Mar 2024" },
+];
 
 export const procurementRecords = [
   { id: "record-01", date: "14 Mar 2024", centre: "Sehore Mandi Procurement Centre", quantity: 45, amount: 102375, paymentStatus: "Paid" },

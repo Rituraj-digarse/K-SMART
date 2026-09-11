@@ -17,6 +17,9 @@ const FarmerLogin = lazy(() => import("./pages/AuthPages").then((module) => ({ d
 const StaffLogin = lazy(() => import("./pages/AuthPages").then((module) => ({ default: module.StaffLogin })));
 const PortalPlaceholder = lazy(() => import("./pages/AuthPages").then((module) => ({ default: module.PortalPlaceholder })));
 const BookSlot = lazy(() => import("./pages/BookSlot"));
+const OfficerDashboard = lazy(() => import("./pages/StaffDashboards").then((module) => ({ default: module.OfficerDashboard })));
+const OperatorDashboard = lazy(() => import("./pages/StaffDashboards").then((module) => ({ default: module.OperatorDashboard })));
+const AdminDashboard = lazy(() => import("./pages/StaffDashboards").then((module) => ({ default: module.AdminDashboard })));
 
 function LoadingShell() {
   return <div className="route-loading" role="status" aria-live="polite"><div className="skeleton skeleton-logo" /><div className="skeleton skeleton-heading" /><div className="skeleton skeleton-card" /><span>Loading e-Uparjan…</span></div>;
@@ -47,6 +50,9 @@ const App = () => (
               <Route path="/login/officer" element={<AuthRoute page="staff" />} />
               <Route path="/login/operator" element={<AuthRoute page="staff" />} />
               <Route path="/farmer/book-slot" element={<BookSlot />} />
+              <Route path="/officer/dashboard" element={<OfficerDashboard />} />
+              <Route path="/operator/dashboard" element={<OperatorDashboard />} />
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
               <Route path="/portal/:role" element={<AuthRoute page="portal" />} />
               <Route path="/access-denied" element={<AccessDenied />} />
               <Route path="*" element={<NotFound />} />
