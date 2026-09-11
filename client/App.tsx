@@ -51,7 +51,9 @@ const App = () => (
               <Route path="/login/operator" element={<AuthRoute page="staff" />} />
               <Route path="/farmer/book-slot" element={<BookSlot />} />
               <Route path="/officer/dashboard" element={<OfficerDashboard />} />
+              <Route path="/officer/*" element={<OfficerDashboard />} />
               <Route path="/operator/dashboard" element={<OperatorDashboard />} />
+              <Route path="/operator/*" element={<OperatorDashboard />} />
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
               <Route path="/portal/:role" element={<AuthRoute page="portal" />} />
               <Route path="/access-denied" element={<AccessDenied />} />
