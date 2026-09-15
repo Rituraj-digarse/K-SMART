@@ -183,7 +183,7 @@
         { kisaanCode: 'KIS-24-05821', name: 'Ramesh Kumar', village: 'Barkheda', phone: '9876543210', cropType: 'Wheat', weighingSlipNo: 'WS-240321-0452', weighingDate: '21 Mar 2024', status: 'receipt_pending' },
         { kisaanCode: 'KIS-24-06118', name: 'Sita Bai', village: 'Ashta', phone: '9123456789', cropType: 'Soybean', weighingSlipNo: 'WS-240321-0453', weighingDate: '21 Mar 2024', status: 'receipt_pending' }
       ];
-      const rates = { Wheat: 2275, Soybean: 4892, Maize: 2090, Paddy: 2320 };
+      const rates = { Wheat: 3500, Soybean: 4892, Maize: 2090, Paddy: 2320 };
       const state = { farmer: null, quantity: 0, calculatedPayment: 0, payment: 0, otp: '', resendCooldown: 0, currentStep: 1, completed: [{ id: 'CMPL-240321-001', name: 'Anita Verma', code: 'KIS-24-05697', quantity: 38, amount: 86450, time: '10:24 AM' }] };
       const byId = (id) => document.getElementById(id);
       const formatCurrency = (value) => `₹${Number(value || 0).toLocaleString('en-IN')}`;
