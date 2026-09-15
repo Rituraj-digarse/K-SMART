@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#102a43" />
+    <title>Operator Dashboard | e-Uparjan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              portal: {
+                navy: '#102a43',
+                deep: '#0b2034',
+                green: '#138a57',
+                'green-dark': '#0b7145',
+                cream: '#f7f9f7',
+                orange: '#ee8b35'
+              }
+            },
+            fontFamily: {
+              sans: ['DM Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+              display: ['Plus Jakarta Sans', 'DM Sans', 'ui-sans-serif', 'sans-serif']
+            },
+            boxShadow: {
+              soft: '0 10px 30px rgba(16, 42, 67, 0.07)'
+            }
+          }
+        }
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  </head>
+  <body class="min-h-screen bg-portal-cream font-sans text-slate-700 antialiased">
+    <div class="h-1 bg-gradient-to-r from-[#e8752e] via-white to-[#128447]"></div>
+    <div class="bg-portal-deep text-[11px] text-slate-200">
+      <div class="mx-auto flex min-h-9 w-[min(1280px,calc(100%-30px))] items-center justify-between gap-4">
+        <span>भारत सरकार <span class="mx-1 text-slate-500">|</span> Government of India</span>
+        <span class="hidden sm:inline">e-Uparjan · Smart Procurement System</span>
+      </div>
+    </div>
+
+    <header class="border-b border-[#dfe8e3] bg-white">
+      <div class="mx-auto flex min-h-[72px] w-[min(1280px,calc(100%-30px))] items-center justify-between gap-4 py-3">
+        <div class="flex min-w-0 items-center gap-3">
+          <div class="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-[#c4e0d2] bg-[#e6f3ed] text-portal-green">
+            <svg aria-hidden="true" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a8.5 8.5 0 0 0 8.5-8.5C20.5 7.5 16.8 4.7 12 3 7.2 4.7 3.5 7.5 3.5 12.5A8.5 8.5 0 0 0 12 21Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 21c0-6.5 1.9-11.2 5.7-14.2M12 17.5c-2-2.6-3.9-4.2-6.2-4.8"/></svg>
+          </div>
+          <div class="min-w-0">
+            <p class="mb-0.5 truncate text-[9px] font-bold uppercase tracking-[0.08em] text-slate-500">Department of Food &amp; Civil Supplies</p>
+            <h1 class="font-display text-[18px] font-bold tracking-tight text-portal-navy sm:text-[20px]">e-Uparjan <span class="ml-1 text-[12px] font-semibold tracking-normal text-portal-green">Operator Portal</span></h1>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 sm:gap-6">
+          <div class="hidden items-center gap-2 text-portal-green md:flex">
+            <svg aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M5 4h3l2 5-2 1.5a13.6 13.6 0 0 0 5.5 5.5L15 14l5 2v3c0 1.1-.9 2-2 2C10.3 21 3 13.7 3 5a2 2 0 0 1 2-2Z"/></svg>
+            <div><span class="block text-[10px] text-slate-500">Farmer helpline</span><strong class="text-[12px] text-portal-navy">1800-233-4250</strong></div>
+          </div>
+          <div class="flex items-center gap-2 border-l border-[#dfe8e3] pl-3 sm:pl-5">
+            <span class="grid h-8 w-8 place-items-center rounded-full bg-[#e6f3ed] text-[12px] font-bold text-portal-green-dark">CO</span>
+            <div class="hidden sm:block"><strong class="block text-[12px] text-portal-navy">Centre Operator</strong><span class="text-[10px] text-slate-500">Sehore Mandi Centre</span></div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="mx-auto w-[min(1280px,calc(100%-30px))] pb-16 pt-7 sm:pt-9">
+      <div class="mb-7 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+        <div>
+          <div class="mb-2 flex items-center gap-2 text-[10px] text-slate-500"><a class="transition hover:text-portal-green-dark" href="/roles">Portal selection</a><span>/</span><span class="font-semibold text-portal-navy">Operator dashboard</span></div>
+          <p class="mb-1 text-[10px] font-bold uppercase tracking-[0.12em] text-portal-green">Receipt entry workspace</p>
+          <h2 class="font-display text-[25px] font-bold tracking-tight text-portal-navy sm:text-[30px]">Confirm today's procurement</h2>
+          <p class="mt-1 max-w-2xl text-[12px] leading-5 text-slate-500">Enter the physical receipt details, verify the farmer, and complete payment confirmation securely.</p>
+        </div>
+        <div class="flex items-center gap-2 self-start rounded-full border border-[#cbe3d4] bg-[#edf7f1] px-3 py-2 text-[10px] font-semibold text-portal-green-dark md:self-auto">
+          <span class="h-2 w-2 rounded-full bg-portal-green"></span>
+          Today · 21 March 2024
+        </div>
+      </div>
+
+      <section aria-label="Operator workflow" class="mb-7 rounded-lg border border-[#dfe8e3] bg-white p-4 shadow-soft sm:p-5">
+        <div class="mb-4 flex items-center justify-between gap-3">
+          <div><p class="text-[9px] font-bold uppercase tracking-[0.12em] text-slate-400">Workflow progress</p><h3 class="mt-1 font-display text-[15px] font-bold text-portal-navy">Complete receipt confirmation</h3></div>
+          <span id="step-label" class="rounded-full bg-[#edf7f1] px-3 py-1.5 text-[10px] font-bold text-portal-green-dark">Step 1 of 4</span>
+        </div>
+        <div class="grid grid-cols-4 gap-2 sm:gap-4" id="stepper">
+          <div class="step-item" data-step="1"><div class="mb-2 flex items-center"><span class="step-circle grid h-7 w-7 place-items-center rounded-full border-2 border-portal-green bg-portal-green text-[11px] font-bold text-white">1</span><span class="step-line ml-2 hidden h-px flex-1 bg-[#cbe3d4] sm:block"></span></div><span class="step-text text-[10px] font-bold text-portal-green-dark">Find farmer</span></div>
+          <div class="step-item" data-step="2"><div class="mb-2 flex items-center"><span class="step-circle grid h-7 w-7 place-items-center rounded-full border-2 border-[#d7e4dd] bg-white text-[11px] font-bold text-slate-400">2</span><span class="step-line ml-2 hidden h-px flex-1 bg-[#e5eee9] sm:block"></span></div><span class="step-text text-[10px] font-bold text-slate-400">Verify receipt</span></div>
+          <div class="step-item" data-step="3"><div class="mb-2 flex items-center"><span class="step-circle grid h-7 w-7 place-items-center rounded-full border-2 border-[#d7e4dd] bg-white text-[11px] font-bold text-slate-400">3</span><span class="step-line ml-2 hidden h-px flex-1 bg-[#e5eee9] sm:block"></span></div><span class="step-text text-[10px] font-bold text-slate-400">Confirm OTP</span></div>
+          <div class="step-item" data-step="4"><div class="mb-2 flex items-center"><span class="step-circle grid h-7 w-7 place-items-center rounded-full border-2 border-[#d7e4dd] bg-white text-[11px] font-bold text-slate-400">4</span></div><span class="step-text text-[10px] font-bold text-slate-400">Completed</span></div>
+        </div>
+      </section>
+
+      <div id="global-message" class="mb-5 hidden items-start gap-2 rounded-md border px-3 py-2.5 text-[11px]" role="alert"></div>
+
+      <div class="grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_360px]">
+        <div class="space-y-6">
+          <section class="rounded-lg border border-[#dfe8e3] bg-white p-5 shadow-soft sm:p-6" aria-labelledby="search-title">
+            <div class="mb-5 flex items-start gap-3">
+              <div class="grid h-9 w-9 shrink-0 place-items-center rounded-md bg-[#e7f3ed] text-portal-green-dark">
+                <svg aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="6.5"/><path stroke-linecap="round" d="m16 16 4.5 4.5"/></svg>
+              </div>
+              <div><p class="text-[9px] font-bold uppercase tracking-[0.12em] text-portal-green">Step 1</p><h3 id="search-title" class="mt-1 font-display text-[17px] font-bold text-portal-navy">Find completed weighing</h3><p class="mt-1 text-[11px] leading-5 text-slate-500">Search only farmers whose physical receipt is ready for entry.</p></div>
+            </div>
+            <form id="search-form" class="flex flex-col gap-3 sm:flex-row">
+              <label class="min-w-0 flex-1"><span class="mb-1.5 block text-[10px] font-bold text-slate-600">Kisaan Code</span><input id="kisaan-code" autocomplete="off" class="h-11 w-full rounded-md border border-[#cbded3] bg-[#fbfdfc] px-3 text-[13px] font-semibold uppercase tracking-wide text-portal-navy placeholder:normal-case placeholder:tracking-normal placeholder:text-slate-400 focus:border-portal-green focus:outline-none focus:ring-2 focus:ring-[#cbe3d4]" placeholder="e.g. KIS-24-05821" /></label>
+              <button id="fetch-button" class="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-portal-green px-5 text-[12px] font-bold text-white transition hover:bg-portal-green-dark disabled:cursor-not-allowed disabled:opacity-60 sm:mt-[22px]" type="submit"><span id="fetch-button-text">Fetch farmer</span><svg id="fetch-spinner" class="hidden h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="9" stroke="currentColor" stroke-width="3"/><path class="opacity-90" d="M21 12a9 9 0 0 1-9 9" stroke="currentColor" stroke-width="3"/></svg></button>
+            </form>
+            <p class="mt-3 text-[10px] text-slate-400">Try <button type="button" data-code="KIS-24-05821" class="font-bold text-portal-green-dark underline decoration-[#b9d9c8] underline-offset-2">KIS-24-05821</button> for the demo farmer.</p>
+          </section>
+
+          <section id="farmer-section" class="hidden rounded-lg border border-[#dfe8e3] bg-white p-5 shadow-soft sm:p-6" aria-labelledby="farmer-title">
+            <div class="mb-5 flex flex-col justify-between gap-3 sm:flex-row sm:items-start">
+              <div class="flex items-start gap-3"><div class="grid h-9 w-9 shrink-0 place-items-center rounded-md bg-[#e7f3ed] text-portal-green-dark"><svg aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M20 21a8 8 0 0 0-16 0M12 13a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/></svg></div><div><p class="text-[9px] font-bold uppercase tracking-[0.12em] text-portal-green">Step 2</p><h3 id="farmer-title" class="mt-1 font-display text-[17px] font-bold text-portal-navy">Farmer and receipt details</h3><p class="mt-1 text-[11px] text-slate-500">Review the read-only details against the physical receipt.</p></div></div>
+              <span id="farmer-status" class="w-fit rounded-full border border-[#cbe3d4] bg-[#edf7f1] px-2.5 py-1 text-[9px] font-bold text-portal-green-dark">Receipt pending</span>
+            </div>
+            <div class="mb-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <div class="rounded-md border border-[#e4ece7] bg-[#fbfdfc] p-3"><span class="block text-[9px] font-bold uppercase tracking-wide text-slate-400">Farmer name</span><strong id="farmer-name" class="mt-1 block text-[13px] text-portal-navy">—</strong></div>
+              <div class="rounded-md border border-[#e4ece7] bg-[#fbfdfc] p-3"><span class="block text-[9px] font-bold uppercase tracking-wide text-slate-400">Village</span><strong id="farmer-village" class="mt-1 block text-[13px] text-portal-navy">—</strong></div>
+              <div class="rounded-md border border-[#e4ece7] bg-[#fbfdfc] p-3"><span class="block text-[9px] font-bold uppercase tracking-wide text-slate-400">Registered phone</span><strong id="farmer-phone" class="mt-1 block text-[13px] text-portal-navy">—</strong></div>
+              <div class="rounded-md border border-[#e4ece7] bg-[#fbfdfc] p-3"><span class="block text-[9px] font-bold uppercase tracking-wide text-slate-400">Crop type</span><strong id="farmer-crop" class="mt-1 block text-[13px] text-portal-navy">—</strong></div>
+              <div class="rounded-md border border-[#e4ece7] bg-[#fbfdfc] p-3"><span class="block text-[9px] font-bold uppercase tracking-wide text-slate-400">Weighing slip number</span><strong id="farmer-slip" class="mt-1 block text-[13px] text-portal-navy">—</strong></div>
+              <div class="rounded-md border border-[#e4ece7] bg-[#fbfdfc] p-3"><span class="block text-[9px] font-bold uppercase tracking-wide text-slate-400">Weighing date</span><strong id="farmer-date" class="mt-1 block text-[13px] text-portal-navy">—</strong></div>
+            </div>
+            <div class="mb-5 border-t border-[#edf1ef] pt-5">
+              <p class="mb-3 text-[10px] font-bold uppercase tracking-[0.1em] text-slate-500">Physical receipt information</p>
+              <div class="grid gap-3 sm:grid-cols-3">
+                <div><span class="block text-[9px] text-slate-400">Slip number</span><strong id="receipt-slip" class="mt-1 block text-[12px] text-portal-navy">—</strong></div>
+                <div><span class="block text-[9px] text-slate-400">Date</span><strong id="receipt-date" class="mt-1 block text-[12px] text-portal-navy">—</strong></div>
+                <div><span class="block text-[9px] text-slate-400">Crop</span><strong id="receipt-crop" class="mt-1 block text-[12px] text-portal-navy">—</strong></div>
+              </div>
+            </div>
+            <label class="flex items-start gap-3 rounded-md border border-[#cbe3d4] bg-[#f7fcf9] p-3 text-[11px] text-slate-600"><input id="details-verified" class="mt-0.5 h-4 w-4 shrink-0 accent-[#138a57]" type="checkbox" /><span>I have reviewed and verified the farmer details against the physical receipt.</span></label>
+            <div class="mt-5 border-t border-[#edf1ef] pt-5">
+              <label class="block"><span class="mb-1.5 block text-[10px] font-bold text-slate-600">Actual quantity from physical receipt <span class="font-normal text-slate-400">(quintals)</span></span><div class="relative max-w-xs"><input id="quantity" class="h-11 w-full rounded-md border border-[#cbded3] bg-[#fbfdfc] px-3 pr-14 text-[14px] font-semibold text-portal-navy focus:border-portal-green focus:outline-none focus:ring-2 focus:ring-[#cbe3d4]" type="number" min="0.01" step="0.01" placeholder="Enter quantity" /><span class="pointer-events-none absolute right-3 top-3 text-[11px] font-bold text-slate-400">qtl</span></div></label>
+              <label class="mt-4 flex items-start gap-3 text-[11px] text-slate-600"><input id="quantity-verified" class="mt-0.5 h-4 w-4 shrink-0 accent-[#138a57]" type="checkbox" /><span>Quantity verified with farmer in person.</span></label>
+            </div>
+          </section>
+
+          <section id="payment-section" class="hidden rounded-lg border border-[#dfe8e3] bg-white p-5 shadow-soft sm:p-6" aria-labelledby="payment-title">
+            <div class="mb-5 flex items-start gap-3"><div class="grid h-9 w-9 shrink-0 place-items-center rounded-md bg-[#fff4e8] text-portal-orange"><svg aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5h18M5 5h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z"/><path stroke-linecap="round" d="M7 15h3"/></svg></div><div><p class="text-[9px] font-bold uppercase tracking-[0.12em] text-portal-orange">Payment confirmation</p><h3 id="payment-title" class="mt-1 font-display text-[17px] font-bold text-portal-navy">Review calculated payment</h3><p class="mt-1 text-[11px] text-slate-500">Confirm the amount before sending the farmer OTP.</p></div></div>
+            <div class="mb-5 grid gap-3 sm:grid-cols-2"><div class="rounded-md border border-[#cbe3d4] bg-[#edf7f1] p-4"><span class="block text-[10px] text-slate-500">Calculated payment</span><strong id="calculated-payment" class="mt-1 block font-display text-[22px] font-bold text-portal-green-dark">₹0</strong><span id="rate-summary" class="mt-1 block text-[10px] text-slate-500">Quantity × crop rate</span></div><div class="rounded-md border border-[#e4ece7] bg-[#fbfdfc] p-4"><span class="block text-[10px] text-slate-500">Crop rate</span><strong id="rate-value" class="mt-1 block text-[16px] font-bold text-portal-navy">₹0 / qtl</strong><span class="mt-1 block text-[10px] text-slate-400">As per current MSP table</span></div></div>
+            <label class="block"><span class="mb-1.5 block text-[10px] font-bold text-slate-600">Payment amount to confirm</span><div class="relative max-w-sm"><span class="pointer-events-none absolute left-3 top-3 text-[13px] font-semibold text-slate-400">₹</span><input id="payment-amount" class="h-11 w-full rounded-md border border-[#cbded3] bg-[#fbfdfc] pl-8 pr-3 text-[14px] font-semibold text-portal-navy focus:border-portal-green focus:outline-none focus:ring-2 focus:ring-[#cbe3d4]" type="number" min="1" step="1" /></div><span class="mt-1.5 block text-[10px] text-slate-400">You may correct the amount only to match the physical receipt and approved rate.</span></label>
+            <button id="confirm-payment" type="button" class="mt-5 inline-flex h-11 items-center justify-center gap-2 rounded-md bg-portal-green px-5 text-[12px] font-bold text-white transition hover:bg-portal-green-dark disabled:cursor-not-allowed disabled:opacity-60"><span id="confirm-payment-text">Confirm payment &amp; send OTP</span><svg id="payment-spinner" class="hidden h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="9" stroke="currentColor" stroke-width="3"/><path class="opacity-90" d="M21 12a9 9 0 0 1-9 9" stroke="currentColor" stroke-width="3"/></svg></button>
+          </section>
+
+          <section id="otp-section" class="hidden rounded-lg border border-[#dfe8e3] bg-white p-5 shadow-soft sm:p-6" aria-labelledby="otp-title">
+            <div class="mb-5 flex items-start gap-3"><div class="grid h-9 w-9 shrink-0 place-items-center rounded-md bg-[#e7f3ed] text-portal-green-dark"><svg aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><rect x="5" y="3" width="14" height="18" rx="2"/><path stroke-linecap="round" d="M9 7h6M9 17h6M12 13v.01"/></svg></div><div><p class="text-[9px] font-bold uppercase tracking-[0.12em] text-portal-green">Step 3</p><h3 id="otp-title" class="mt-1 font-display text-[17px] font-bold text-portal-navy">Verify farmer OTP</h3><p id="otp-message" class="mt-1 text-[11px] leading-5 text-slate-500"></p></div></div>
+            <div class="mb-4 rounded-md border border-[#cbe3d4] bg-[#edf7f1] px-3 py-2.5 text-[11px] text-portal-green-dark"><span class="font-bold">Demo mode:</span> OTP is <strong>246810</strong>. In production, this will be delivered to the registered phone.</div>
+            <div id="otp-inputs" class="mb-4 flex max-w-sm gap-2"></div>
+            <div id="otp-error" class="mb-4 hidden rounded-md border border-[#efc6bc] bg-[#fff0ed] px-3 py-2.5 text-[11px] text-[#a33e32]" role="alert"></div>
+            <div class="flex flex-col gap-3 sm:flex-row sm:items-center"><button id="verify-otp" type="button" class="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-portal-green px-5 text-[12px] font-bold text-white transition hover:bg-portal-green-dark disabled:cursor-not-allowed disabled:opacity-60">Verify OTP <svg aria-hidden="true" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="m5 12 4 4L19 6"/></svg></button><button id="resend-otp" type="button" class="h-11 rounded-md border border-[#cbe3d4] px-4 text-[11px] font-bold text-portal-green-dark transition hover:bg-[#edf7f1] disabled:cursor-not-allowed disabled:text-slate-400">Resend OTP in <span id="resend-count">30</span>s</button></div>
+          </section>
+
+          <section id="success-section" class="hidden rounded-lg border border-[#b9dcc7] bg-white p-5 shadow-soft sm:p-6" aria-labelledby="success-title">
+            <div class="mb-5 flex items-start gap-3"><div class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#e0f2e8] text-portal-green"><svg aria-hidden="true" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="m6 12 4 4 8-8"/></svg></div><div><p class="text-[9px] font-bold uppercase tracking-[0.12em] text-portal-green">Step 4 · Completed</p><h3 id="success-title" class="mt-1 font-display text-[19px] font-bold text-portal-navy">Procurement confirmed</h3><p class="mt-1 text-[11px] text-slate-500">The record has been added to today's completed list.</p></div></div>
+            <div class="grid gap-3 sm:grid-cols-2"><div class="rounded-md bg-[#f7fcf9] p-3"><span class="block text-[9px] uppercase tracking-wide text-slate-400">Farmer name</span><strong id="success-name" class="mt-1 block text-[12px] text-portal-navy">—</strong></div><div class="rounded-md bg-[#f7fcf9] p-3"><span class="block text-[9px] uppercase tracking-wide text-slate-400">Kisaan code</span><strong id="success-code" class="mt-1 block text-[12px] text-portal-navy">—</strong></div><div class="rounded-md bg-[#f7fcf9] p-3"><span class="block text-[9px] uppercase tracking-wide text-slate-400">Quantity</span><strong id="success-quantity" class="mt-1 block text-[12px] text-portal-navy">—</strong></div><div class="rounded-md bg-[#f7fcf9] p-3"><span class="block text-[9px] uppercase tracking-wide text-slate-400">Payment amount</span><strong id="success-payment" class="mt-1 block text-[12px] text-portal-green-dark">—</strong></div><div class="rounded-md bg-[#f7fcf9] p-3 sm:col-span-2"><span class="block text-[9px] uppercase tracking-wide text-slate-400">Date and time</span><strong id="success-datetime" class="mt-1 block text-[12px] text-portal-navy">—</strong></div></div>
+            <button id="new-search" type="button" class="mt-5 inline-flex h-11 items-center justify-center gap-2 rounded-md border border-[#cbe3d4] px-5 text-[12px] font-bold text-portal-green-dark transition hover:bg-[#edf7f1]">Return to farmer search <svg aria-hidden="true" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m7 7-7-7 7-7"/></svg></button>
+          </section>
+        </div>
+
+        <aside class="space-y-6 xl:sticky xl:top-5">
+          <section class="rounded-lg border border-[#dfe8e3] bg-white p-5 shadow-soft" aria-labelledby="records-title">
+            <div class="mb-4 flex items-start justify-between gap-3"><div><p class="text-[9px] font-bold uppercase tracking-[0.12em] text-portal-green">Reference only</p><h3 id="records-title" class="mt-1 font-display text-[16px] font-bold text-portal-navy">Completed records</h3></div><span id="record-count" class="rounded-full bg-[#edf7f1] px-2.5 py-1 text-[10px] font-bold text-portal-green-dark">1 today</span></div>
+            <p class="mb-4 text-[10px] leading-4 text-slate-500">Confirmed procurements for today. Records cannot be edited from the Operator Portal.</p>
+            <div id="records-list" class="space-y-3"></div>
+          </section>
+          <section class="rounded-lg border border-[#dfe8e3] bg-[#edf6f2] p-5" aria-label="Operator guidance"><div class="flex items-start gap-2.5"><svg aria-hidden="true" class="mt-0.5 h-4 w-4 shrink-0 text-portal-green-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01M4.9 19h14.2a2 2 0 0 0 1.73-3L13.73 4a2 2 0 0 0-3.46 0L3.17 16a2 2 0 0 0 1.73 3Z"/></svg><div><h3 class="text-[11px] font-bold text-portal-green-dark">Operator guidance</h3><p class="mt-1 text-[10px] leading-4 text-[#5f7973]">Check the physical slip before entering quantity. Never share OTPs or leave this screen unattended.</p></div></div></section>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="border-t border-[#dfe8e3] bg-white py-5 text-[10px] text-slate-500"><div class="mx-auto flex w-[min(1280px,calc(100%-30px))] flex-col justify-between gap-2 sm:flex-row"><span>e-Uparjan · Smart Procurement &amp; Token Management System</span><span>Terms · Privacy · Last updated: 18 March 2024</span></div></footer>
+    <div class="fixed bottom-3 right-3 z-10 rounded bg-[#7a5322] px-2.5 py-1.5 text-[9px] text-white shadow-lg">Demo Mode · Simulated data</div>
+
+    <script>
+      const farmers = [
+        { kisaanCode: 'KIS-24-05821', name: 'Ramesh Kumar', village: 'Barkheda', phone: '9876543210', cropType: 'Wheat', weighingSlipNo: 'WS-240321-0452', weighingDate: '21 Mar 2024', status: 'receipt_pending' },
+        { kisaanCode: 'KIS-24-06118', name: 'Sita Bai', village: 'Ashta', phone: '9123456789', cropType: 'Soybean', weighingSlipNo: 'WS-240321-0453', weighingDate: '21 Mar 2024', status: 'receipt_pending' }
+      ];
+      const rates = { Wheat: 2275, Soybean: 4892, Maize: 2090, Paddy: 2320 };
+      const state = { farmer: null, quantity: 0, calculatedPayment: 0, payment: 0, otp: '', resendCooldown: 0, currentStep: 1, completed: [{ id: 'CMPL-240321-001', name: 'Anita Verma', code: 'KIS-24-05697', quantity: 38, amount: 86450, time: '10:24 AM' }] };
+      const byId = (id) => document.getElementById(id);
+      const formatCurrency = (value) => `₹${Number(value || 0).toLocaleString('en-IN')}`;
+      const maskPhone = (phone) => `+91 ${phone.slice(0, 2)}XXXXXX${phone.slice(-2)}`;
+      const setVisible = (id, visible) => byId(id).classList.toggle('hidden', !visible);
+      const showMessage = (message, type = 'error') => { const element = byId('global-message'); element.textContent = message; element.className = `mb-5 flex items-start gap-2 rounded-md border px-3 py-2.5 text-[11px] ${type === 'success' ? 'border-[#b9dcc7] bg-[#edf7f1] text-portal-green-dark' : 'border-[#efc6bc] bg-[#fff0ed] text-[#a33e32]'}`; };
+      const clearMessage = () => { byId('global-message').classList.add('hidden'); };
+
+      function setStep(step) {
+        state.currentStep = step;
+        byId('step-label').textContent = `Step ${step} of 4`;
+        document.querySelectorAll('.step-item').forEach((item) => {
+          const itemStep = Number(item.dataset.step);
+          const circle = item.querySelector('.step-circle');
+          const text = item.querySelector('.step-text');
+          const line = item.querySelector('.step-line');
+          const complete = itemStep < step;
+          const active = itemStep === step;
+          circle.className = `step-circle grid h-7 w-7 place-items-center rounded-full border-2 text-[11px] font-bold ${complete || active ? 'border-portal-green bg-portal-green text-white' : 'border-[#d7e4dd] bg-white text-slate-400'}`;
+          circle.textContent = complete ? '✓' : String(itemStep);
+          text.className = `step-text text-[10px] font-bold ${complete || active ? 'text-portal-green-dark' : 'text-slate-400'}`;
+          if (line) line.className = `step-line ml-2 hidden h-px flex-1 sm:block ${complete ? 'bg-[#cbe3d4]' : 'bg-[#e5eee9]'}`;
+        });
+      }
+
+      function fetchFarmerByCode(code) {
+        return new Promise((resolve) => window.setTimeout(() => resolve(farmers.find((farmer) => farmer.status === 'receipt_pending' && farmer.kisaanCode.toLowerCase() === code.trim().toLowerCase()) || null), 650));
+      }
+
+      function calculatePayment(quantity, cropType) {
+        return Number((Number(quantity) * (rates[cropType] || 0)).toFixed(2));
+      }
+
+      function sendOtp(phone) {
+        state.otp = '246810';
+        state.resendCooldown = 30;
+        byId('otp-message').textContent = `OTP sent to number ending in ${phone.slice(-4)}. Ask the farmer to enter the six-digit code.`;
+        byId('resend-otp').innerHTML = `Resend OTP in <span id="resend-count">${state.resendCooldown}</span>s`;
+        byId('resend-otp').disabled = true;
+        const timer = window.setInterval(() => { state.resendCooldown -= 1; byId('resend-count').textContent = state.resendCooldown; if (state.resendCooldown <= 0) { window.clearInterval(timer); byId('resend-otp').disabled = false; byId('resend-otp').innerHTML = 'Resend OTP'; } }, 1000);
+      }
+
+      function verifyOtp(value) {
+        return value === state.otp;
+      }
+
+      function confirmRecord() {
+        const now = new Date();
+        return { id: `CMPL-${Date.now()}`, name: state.farmer.name, code: state.farmer.kisaanCode, quantity: state.quantity, amount: state.payment, time: now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }), dateTime: now.toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }) };
+      }
+
+      function renderFarmer(farmer) {
+        const fields = { 'farmer-name': farmer.name, 'farmer-village': farmer.village, 'farmer-phone': maskPhone(farmer.phone), 'farmer-crop': farmer.cropType, 'farmer-slip': farmer.weighingSlipNo, 'farmer-date': farmer.weighingDate, 'receipt-slip': farmer.weighingSlipNo, 'receipt-date': farmer.weighingDate, 'receipt-crop': farmer.cropType };
+        Object.entries(fields).forEach(([id, value]) => { byId(id).textContent = value; });
+        byId('details-verified').checked = false;
+        byId('quantity-verified').checked = false;
+        byId('quantity').value = '';
+        byId('calculated-payment').textContent = formatCurrency(0);
+        byId('rate-value').textContent = `${formatCurrency(rates[farmer.cropType])} / qtl`;
+        byId('rate-summary').textContent = `Quantity × ${formatCurrency(rates[farmer.cropType])} per quintal`;
+        byId('payment-amount').value = '';
+      }
+
+      function renderRecords() {
+        byId('record-count').textContent = `${state.completed.length} today`;
+        byId('records-list').innerHTML = state.completed.map((record) => `<div class="rounded-md border border-[#e4ece7] bg-[#fbfdfc] p-3"><div class="flex items-start justify-between gap-2"><div><strong class="block text-[11px] text-portal-navy">${record.name}</strong><span class="mt-0.5 block text-[9px] text-slate-500">${record.code}</span></div><span class="rounded-full bg-[#e7f3ed] px-2 py-1 text-[8px] font-bold text-portal-green-dark">Confirmed</span></div><div class="mt-3 grid grid-cols-2 gap-2 border-t border-[#edf1ef] pt-2.5 text-[9px]"><span class="text-slate-400">Quantity <strong class="ml-1 text-slate-600">${record.quantity} qtl</strong></span><span class="text-right text-slate-400">Payment <strong class="ml-1 text-portal-green-dark">${formatCurrency(record.amount)}</strong></span></div><span class="mt-2 block text-[9px] text-slate-400">${record.time}</span></div>`).join('');
+      }
+
+      function resetForNewSearch() {
+        state.farmer = null;
+        state.quantity = 0;
+        state.calculatedPayment = 0;
+        state.payment = 0;
+        state.otp = '';
+        byId('kisaan-code').value = '';
+        byId('otp-inputs').innerHTML = '';
+        byId('otp-error').classList.add('hidden');
+        byId('search-form').classList.remove('hidden');
+        setVisible('farmer-section', false);
+        setVisible('payment-section', false);
+        setVisible('otp-section', false);
+        setVisible('success-section', false);
+        clearMessage();
+        setStep(1);
+        byId('kisaan-code').focus();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      byId('search-form').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        clearMessage();
+        const button = byId('fetch-button');
+        button.disabled = true;
+        byId('fetch-button-text').textContent = 'Fetching…';
+        byId('fetch-spinner').classList.remove('hidden');
+        const farmer = await fetchFarmerByCode(byId('kisaan-code').value);
+        button.disabled = false;
+        byId('fetch-button-text').textContent = 'Fetch farmer';
+        byId('fetch-spinner').classList.add('hidden');
+        if (!farmer) { setVisible('farmer-section', false); showMessage('No receipt-pending farmer found for this Kisaan Code. Check the code and try again.'); return; }
+        state.farmer = farmer;
+        renderFarmer(farmer);
+        setVisible('farmer-section', true);
+        setVisible('payment-section', true);
+        setStep(2);
+        byId('farmer-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+
+      byId('quantity').addEventListener('input', () => {
+        if (!state.farmer) return;
+        const quantity = Number(byId('quantity').value);
+        state.quantity = quantity;
+        state.calculatedPayment = quantity > 0 ? calculatePayment(quantity, state.farmer.cropType) : 0;
+        byId('calculated-payment').textContent = formatCurrency(state.calculatedPayment);
+        byId('payment-amount').value = state.calculatedPayment || '';
+      });
+
+      byId('confirm-payment').addEventListener('click', () => {
+        clearMessage();
+        const amount = Number(byId('payment-amount').value);
+        if (!byId('details-verified').checked) { showMessage('Please verify the farmer details before continuing.'); byId('details-verified').focus(); return; }
+        if (!state.quantity || state.quantity <= 0) { showMessage('Enter the actual quantity from the physical receipt.'); byId('quantity').focus(); return; }
+        if (!byId('quantity-verified').checked) { showMessage('Please confirm that the quantity was verified with the farmer in person.'); byId('quantity-verified').focus(); return; }
+        if (!amount || amount <= 0) { showMessage('Enter a valid payment amount to continue.'); byId('payment-amount').focus(); return; }
+        state.payment = amount;
+        const button = byId('confirm-payment');
+        button.disabled = true;
+        byId('confirm-payment-text').textContent = 'Sending OTP…';
+        byId('payment-spinner').classList.remove('hidden');
+        window.setTimeout(() => { sendOtp(state.farmer.phone); renderOtpInputs(); setVisible('otp-section', true); setStep(3); button.disabled = false; byId('confirm-payment-text').textContent = 'Confirm payment & send OTP'; byId('payment-spinner').classList.add('hidden'); byId('otp-section').scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 550);
+      });
+
+      function renderOtpInputs() {
+        byId('otp-inputs').innerHTML = Array.from({ length: 6 }, (_, index) => `<input aria-label="OTP digit ${index + 1}" data-otp-index="${index}" inputmode="numeric" maxlength="1" class="h-12 w-11 rounded-md border border-[#cbded3] bg-[#fbfdfc] text-center text-[18px] font-bold text-portal-navy focus:border-portal-green focus:outline-none focus:ring-2 focus:ring-[#cbe3d4]" />`).join('');
+        const inputs = [...byId('otp-inputs').querySelectorAll('input')];
+        inputs.forEach((input, index) => input.addEventListener('input', () => { input.value = input.value.replace(/\D/g, ''); if (input.value && inputs[index + 1]) inputs[index + 1].focus(); byId('otp-error').classList.add('hidden'); }));
+        inputs.forEach((input, index) => input.addEventListener('keydown', (event) => { if (event.key === 'Backspace' && !input.value && inputs[index - 1]) inputs[index - 1].focus(); }));
+        inputs[0].focus();
+      }
+
+      byId('verify-otp').addEventListener('click', () => {
+        const value = [...byId('otp-inputs').querySelectorAll('input')].map((input) => input.value).join('');
+        const error = byId('otp-error');
+        if (value.length !== 6 || !verifyOtp(value)) { error.textContent = 'The OTP does not match. Please check the code and try again.'; error.classList.remove('hidden'); return; }
+        const record = confirmRecord();
+        state.completed.unshift(record);
+        byId('success-name').textContent = record.name;
+        byId('success-code').textContent = record.code;
+        byId('success-quantity').textContent = `${record.quantity} quintals`;
+        byId('success-payment').textContent = formatCurrency(record.amount);
+        byId('success-datetime').textContent = record.dateTime;
+        renderRecords();
+        setVisible('farmer-section', false);
+        setVisible('payment-section', false);
+        setVisible('otp-section', false);
+        setVisible('success-section', true);
+        setStep(4);
+        byId('success-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+
+      byId('resend-otp').addEventListener('click', () => { if (state.farmer && state.resendCooldown <= 0) { sendOtp(state.farmer.phone); byId('otp-error').classList.add('hidden'); } });
+      byId('new-search').addEventListener('click', resetForNewSearch);
+      document.querySelectorAll('[data-code]').forEach((button) => button.addEventListener('click', () => { byId('kisaan-code').value = button.dataset.code; byId('kisaan-code').focus(); }));
+      renderRecords();
+    </script>
+  </body>
+</html>
