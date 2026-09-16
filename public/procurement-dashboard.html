@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#102a43" />
+    <title>Procurement Officer Dashboard | e-Uparjan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              portal: {
+                navy: '#102a43',
+                deep: '#0b2034',
+                green: '#138a57',
+                'green-dark': '#0b7145',
+                cream: '#f7f9f7',
+                orange: '#ee8b35',
+                officer: '#246bb2'
+              }
+            },
+            fontFamily: {
+              sans: ['DM Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+              display: ['Plus Jakarta Sans', 'DM Sans', 'ui-sans-serif', 'sans-serif']
+            },
+            boxShadow: {
+              soft: '0 10px 30px rgba(16, 42, 67, 0.07)'
+            }
+          }
+        }
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  </head>
+  <body class="min-h-screen bg-portal-cream font-sans text-slate-700 antialiased">
+    <div class="h-1 bg-gradient-to-r from-[#e8752e] via-white to-[#128447]"></div>
+    <div class="bg-portal-deep text-[11px] text-slate-200">
+      <div class="mx-auto flex min-h-9 w-[min(1280px,calc(100%-30px))] items-center justify-between gap-4">
+        <span>भारत सरकार <span class="mx-1 text-slate-500">|</span> Government of India</span>
+        <span class="hidden sm:inline">e-Uparjan · Smart Procurement System</span>
+      </div>
+    </div>
+
+    <header class="border-b border-[#dfe8e3] bg-white">
+      <div class="mx-auto flex min-h-[72px] w-[min(1280px,calc(100%-30px))] items-center justify-between gap-4 py-3">
+        <div class="flex min-w-0 items-center gap-3">
+          <div class="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-[#c4d9e8] bg-[#eaf3fa] text-portal-officer">
+            <svg aria-hidden="true" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3 4.5 6v5c0 4.9 3.2 8.3 7.5 10 4.3-1.7 7.5-5.1 7.5-10V6L12 3Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m8.5 12 2.2 2.2 4.8-5"/></svg>
+          </div>
+          <div class="min-w-0">
+            <p class="mb-0.5 truncate text-[9px] font-bold uppercase tracking-[0.08em] text-slate-500">Department of Food &amp; Civil Supplies</p>
+            <h1 class="font-display text-[18px] font-bold tracking-tight text-portal-navy sm:text-[20px]">e-Uparjan <span class="ml-1 text-[12px] font-semibold tracking-normal text-portal-officer">Procurement Officer Portal</span></h1>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 sm:gap-5">
+          <a href="/roles" class="inline-flex min-h-10 items-center justify-center rounded-md bg-portal-officer px-4 py-2 text-[11px] font-bold text-white shadow-sm transition hover:bg-[#1d5a98] sm:px-5">Switch Portal</a>
+          <div class="hidden items-center gap-2 border-l border-[#dfe8e3] pl-4 text-[10px] text-slate-500 sm:flex"><span class="grid h-8 w-8 place-items-center rounded-full bg-[#eaf3fa] font-bold text-portal-officer">PO</span><div><strong class="block text-[11px] text-portal-navy">Procurement Officer</strong><span>Sehore District</span></div></div>
+        </div>
+      </div>
+    </header>
+
+    <main class="mx-auto w-[min(1280px,calc(100%-30px))] pb-16 pt-7 sm:pt-9">
+      <div class="mb-6 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
+        <div>
+          <div class="mb-2 flex items-center gap-2 text-[10px] text-slate-500"><a class="transition hover:text-portal-officer" href="/roles">Portal selection</a><span>/</span><span class="font-semibold text-portal-navy">Procurement dashboard</span></div>
+          <p class="mb-1 text-[10px] font-bold uppercase tracking-[0.12em] text-portal-officer">Operations control centre</p>
+          <h2 class="font-display text-[25px] font-bold tracking-tight text-portal-navy sm:text-[30px]">Monitor today's procurement</h2>
+          <p class="mt-1 max-w-2xl text-[12px] leading-5 text-slate-500">Manage centre capacity, approve token demand, organize batches, and monitor farmer progress.</p>
+        </div>
+        <div class="flex items-center gap-2 self-start rounded-full border border-[#c4d9e8] bg-[#eef6fb] px-3 py-2 text-[10px] font-semibold text-portal-officer lg:self-auto"><span class="h-2 w-2 rounded-full bg-portal-officer"></span>Today · 21 March 2024</div>
+      </div>
+
+      <nav aria-label="Dashboard sections" class="mb-6 flex gap-1 overflow-x-auto rounded-lg border border-[#dfe8e3] bg-white p-1.5 shadow-soft">
+        <a href="#centres" class="whitespace-nowrap rounded-md bg-[#eef6fb] px-3 py-2 text-[10px] font-bold text-portal-officer">Capacity</a>
+        <a href="#batches" class="whitespace-nowrap rounded-md px-3 py-2 text-[10px] font-bold text-slate-500 transition hover:bg-[#f3f7f9] hover:text-portal-officer">Batches</a>
+        <a href="#tokens" class="whitespace-nowrap rounded-md px-3 py-2 text-[10px] font-bold text-slate-500 transition hover:bg-[#f3f7f9] hover:text-portal-officer">Token approvals</a>
+        <a href="#farmers" class="whitespace-nowrap rounded-md px-3 py-2 text-[10px] font-bold text-slate-500 transition hover:bg-[#f3f7f9] hover:text-portal-officer">Farmer pipeline</a>
+      </nav>
+
+      <div id="global-message" class="mb-5 hidden items-start gap-2 rounded-md border px-3 py-2.5 text-[11px]" role="status" aria-live="polite"></div>
+
+      <section class="mb-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4" aria-label="Daily summary">
+        <div class="rounded-lg border border-[#dfe8e3] border-t-2 border-t-portal-officer bg-white p-4 shadow-soft"><div class="flex items-center justify-between"><span class="text-[10px] font-bold uppercase tracking-wide text-slate-400">Total capacity</span><svg aria-hidden="true" class="h-5 w-5 text-portal-officer" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 20h18M5 20V9l7-5 7 5v11M9 20v-5h6v5M8 10h.01M12 10h.01M16 10h.01"/></svg></div><strong id="stat-capacity" class="mt-3 block font-display text-[23px] font-bold text-portal-navy">—</strong><small class="mt-1 block text-[10px] text-slate-500">Across active centres</small></div>
+        <div class="rounded-lg border border-[#dfe8e3] border-t-2 border-t-portal-green bg-white p-4 shadow-soft"><div class="flex items-center justify-between"><span class="text-[10px] font-bold uppercase tracking-wide text-slate-400">Used today</span><svg aria-hidden="true" class="h-5 w-5 text-portal-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 19V5M4 19h16M8 16v-4M12 16V8M16 16v-7"/></svg></div><strong id="stat-used" class="mt-3 block font-display text-[23px] font-bold text-portal-navy">—</strong><small class="mt-1 block text-[10px] text-slate-500">Weighed and allocated</small></div>
+        <div class="rounded-lg border border-[#dfe8e3] border-t-2 border-t-portal-orange bg-white p-4 shadow-soft"><div class="flex items-center justify-between"><span class="text-[10px] font-bold uppercase tracking-wide text-slate-400">Expected quantity</span><svg aria-hidden="true" class="h-5 w-5 text-portal-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M5 20V9h14v11M3 20h18M8 9V5h8v4M9 13h6M9 16h6"/></svg></div><strong id="stat-expected" class="mt-3 block font-display text-[23px] font-bold text-portal-navy">—</strong><small class="mt-1 block text-[10px] text-slate-500">Scheduled for today</small></div>
+        <div class="rounded-lg border border-[#dfe8e3] border-t-2 border-t-[#7b61a9] bg-white p-4 shadow-soft"><div class="flex items-center justify-between"><span class="text-[10px] font-bold uppercase tracking-wide text-slate-400">Pending tokens</span><svg aria-hidden="true" class="h-5 w-5 text-[#7b61a9]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l2.5 1.5M20 12a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"/></svg></div><strong id="stat-pending" class="mt-3 block font-display text-[23px] font-bold text-portal-navy">—</strong><small class="mt-1 block text-[10px] text-slate-500">Awaiting your decision</small></div>
+      </section>
+
+      <section id="centres" class="mb-6 rounded-lg border border-[#dfe8e3] bg-white p-5 shadow-soft sm:p-6" aria-labelledby="centres-title">
+        <div class="mb-5 flex flex-col justify-between gap-3 sm:flex-row sm:items-start"><div><p class="text-[9px] font-bold uppercase tracking-[0.12em] text-portal-officer">Centre operations</p><h3 id="centres-title" class="mt-1 font-display text-[18px] font-bold text-portal-navy">Configure centre capacity</h3><p class="mt-1 text-[11px] text-slate-500">Set the permanent daily capacity and monitor today's usage. Temporary increases are tracked separately.</p></div><span class="w-fit rounded-full border border-[#c4d9e8] bg-[#eef6fb] px-2.5 py-1 text-[9px] font-bold text-portal-officer">Base settings + daily view</span></div>
+        <div id="centre-list" class="grid gap-4 lg:grid-cols-2"></div>
+      </section>
+
+      <section class="mb-6 rounded-lg border border-[#dfe8e3] bg-white p-5 shadow-soft sm:p-6" aria-labelledby="expected-title">
+        <div class="mb-5 flex items-start gap-3"><div class="grid h-9 w-9 shrink-0 place-items-center rounded-md bg-[#fff4e8] text-portal-orange"><svg aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M5 20V9h14v11M3 20h18M8 9V5h8v4M9 13h6M9 16h6"/></svg></div><div><p class="text-[9px] font-bold uppercase tracking-[0.12em] text-portal-orange">Demand outlook</p><h3 id="expected-title" class="mt-1 font-display text-[18px] font-bold text-portal-navy">Expected quantities</h3><p class="mt-1 text-[11px] text-slate-500">Scheduled crop demand by procurement centre for today.</p></div></div>
+        <div class="overflow-x-auto"><table class="w-full min-w-[620px] border-collapse text-left"><thead><tr class="border-b border-[#e4ece7] text-[9px] uppercase tracking-wide text-slate-400"><th class="pb-3 pr-4 font-bold">Centre</th><th class="pb-3 pr-4 font-bold">Wheat</th><th class="pb-3 pr-4 font-bold">Soybean</th><th class="pb-3 pr-4 font-bold">Maize</th><th class="pb-3 text-right font-bold">Total expected</th></tr></thead><tbody id="expected-table"></tbody></table></div>
+      </section>
+
+      <section id="batches" class="mb-6 grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_360px]">
+        <div class="rounded-lg border border-[#dfe8e3] bg-white p-5 shadow-soft sm:p-6" aria-labelledby="batch-form-title">
+          <div class="mb-5 flex items-start gap-3"><div class="grid h-9 w-9 shrink-0 place-items-center rounded-md bg-[#eaf3fa] text-portal-officer"><svg aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5v-9Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 7.5 7.5 4 7.5-4M12 12v9"/></svg></div><div><p class="text-[9px] font-bold uppercase tracking-[0.12em] text-portal-officer">Batch management</p><h3 id="batch-form-title" class="mt-1 font-display text-[18px] font-bold text-portal-navy">Create a procurement batch</h3><p class="mt-1 text-[11px] text-slate-500">Group approved token demand by crop, centre, and date.</p></div></div>
+          <form id="batch-form" class="grid gap-4 sm:grid-cols-2"><label><span class="mb-1.5 block text-[10px] font-bold text-slate-600">Batch ID</span><input id="batch-id" class="h-10 w-full rounded-md border border-[#d5e2e8] bg-[#f6f9fb] px-3 text-[12px] font-semibold text-slate-500" readonly /></label><label><span class="mb-1.5 block text-[10px] font-bold text-slate-600">Crop type <span class="text-[#a33e32]">*</span></span><select id="batch-crop" class="h-10 w-full rounded-md border border-[#cbdde8] bg-white px-3 text-[12px] text-portal-navy focus:border-portal-officer focus:outline-none focus:ring-2 focus:ring-[#c4d9e8]"><option value="">Select crop</option><option>Wheat</option><option>Soybean</option><option>Maize</option><option>Paddy</option></select></label><label><span class="mb-1.5 block text-[10px] font-bold text-slate-600">Procurement centre <span class="text-[#a33e32]">*</span></span><select id="batch-centre" class="h-10 w-full rounded-md border border-[#cbdde8] bg-white px-3 text-[12px] text-portal-navy focus:border-portal-officer focus:outline-none focus:ring-2 focus:ring-[#c4d9e8]"><option value="">Select centre</option></select></label><label><span class="mb-1.5 block text-[10px] font-bold text-slate-600">Batch date <span class="text-[#a33e32]">*</span></span><input id="batch-date" class="h-10 w-full rounded-md border border-[#cbdde8] bg-white px-3 text-[12px] text-portal-navy focus:border-portal-officer focus:outline-none focus:ring-2 focus:ring-[#c4d9e8]" type="date" value="2024-03-21" /></label><div class="sm:col-span-2"><button id="create-batch" class="inline-flex h-10 items-center justify-center gap-2 rounded-md bg-portal-officer px-4 text-[11px] font-bold text-white transition hover:bg-[#1d5a98] disabled:cursor-not-allowed disabled:opacity-60" type="submit"><span id="create-batch-text">Create batch</span><svg id="batch-spinner" class="hidden h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="9" stroke="currentColor" stroke-width="3"/><path class="opacity-90" d="M21 12a9 9 0 0 1-9 9" stroke="currentColor" stroke-width="3"/></svg></button></div></form>
+        </div>
+        <div class="rounded-lg border border-[#dfe8e3] bg-white p-5 shadow-soft sm:p-6" aria-labelledby="existing-batches-title"><div class="mb-4"><p class="text-[9px] font-bold uppercase tracking-[0.12em] text-slate-400">Existing work groups</p><h3 id="existing-batches-title" class="mt-1 font-display text-[16px] font-bold text-portal-navy">Select a batch</h3></div><select id="batch-select" class="h-10 w-full rounded-md border border-[#cbdde8] bg-white px-3 text-[11px] text-portal-navy focus:border-portal-officer focus:outline-none focus:ring-2 focus:ring-[#c4d9e8]"></select><div id="batch-detail" class="mt-4 rounded-md border border-[#e4ece7] bg-[#fbfdfc] p-3"></div></div>
+      </section>
+
+      <section id="tokens" class="mb-6 rounded-lg border border-[#dfe8e3] bg-white p-5 shadow-soft sm:p-6" aria-labelledby="tokens-title">
+        <div class="mb-5 flex flex-col justify-between gap-3 sm:flex-row sm:items-start"><div><p class="text-[9px] font-bold uppercase tracking-[0.12em] text-portal-officer">Decision queue</p><h3 id="tokens-title" class="mt-1 font-display text-[18px] font-bold text-portal-navy">Approve token requests</h3><p class="mt-1 text-[11px] text-slate-500">Review requested quantities and assign the next procurement step.</p></div><span id="token-queue-count" class="w-fit rounded-full bg-[#fff4e8] px-2.5 py-1 text-[9px] font-bold text-[#a86627]">— pending</span></div>
+        <div class="overflow-x-auto"><table class="w-full min-w-[720px] border-collapse text-left"><thead><tr class="border-b border-[#e4ece7] text-[9px] uppercase tracking-wide text-slate-400"><th class="pb-3 pr-4 font-bold">Farmer</th><th class="pb-3 pr-4 font-bold">Kisaan code</th><th class="pb-3 pr-4 font-bold">Requested slot</th><th class="pb-3 pr-4 font-bold">Quantity</th><th class="pb-3 pr-4 font-bold">Status</th><th class="pb-3 text-right font-bold">Action</th></tr></thead><tbody id="token-table"></tbody></table></div>
+      </section>
+
+      <section id="farmers" class="rounded-lg border border-[#dfe8e3] bg-white p-5 shadow-soft sm:p-6" aria-labelledby="farmers-title">
+        <div class="mb-5 flex flex-col justify-between gap-3 sm:flex-row sm:items-start"><div><p class="text-[9px] font-bold uppercase tracking-[0.12em] text-portal-green">Live operations</p><h3 id="farmers-title" class="mt-1 font-display text-[18px] font-bold text-portal-navy">Farmer procurement pipeline</h3><p class="mt-1 text-[11px] text-slate-500">Read-only view of farmers moving through today's procurement journey.</p></div><span class="w-fit rounded-full border border-[#cbe3d4] bg-[#edf7f1] px-2.5 py-1 text-[9px] font-bold text-portal-green-dark">Monitoring only</span></div>
+        <div class="overflow-x-auto"><table class="w-full min-w-[640px] border-collapse text-left"><thead><tr class="border-b border-[#e4ece7] text-[9px] uppercase tracking-wide text-slate-400"><th class="pb-3 pr-4 font-bold">Farmer</th><th class="pb-3 pr-4 font-bold">Kisaan code</th><th class="pb-3 pr-4 font-bold">Crop</th><th class="pb-3 pr-4 font-bold">Centre</th><th class="pb-3 font-bold">Current status</th></tr></thead><tbody id="farmer-table"></tbody></table></div>
+      </section>
+    </main>
+
+    <footer class="border-t border-[#dfe8e3] bg-white py-5 text-[10px] text-slate-500"><div class="mx-auto flex w-[min(1280px,calc(100%-30px))] flex-col justify-between gap-2 sm:flex-row"><span>e-Uparjan · Smart Procurement &amp; Token Management System</span><span>Terms · Privacy · Last updated: 18 March 2024</span></div></footer>
+    <div class="fixed bottom-3 right-3 z-10 rounded bg-[#7a5322] px-2.5 py-1.5 text-[9px] text-white shadow-lg">Demo Mode · Simulated data</div>
+
+    <script>
+      const centres = [
+        { id: 'centre-01', name: 'Sehore Mandi Procurement Centre', location: 'Mandi Road, Sehore', dailyCapacity: 500, capacityUsed: 320, temporaryCapacity: 0 },
+        { id: 'centre-02', name: 'Ashta Cooperative Centre', location: 'Old Bus Stand, Ashta', dailyCapacity: 350, capacityUsed: 190, temporaryCapacity: 0 },
+        { id: 'centre-03', name: 'Ichhawar Collection Centre', location: 'Main Market, Ichhawar', dailyCapacity: 280, capacityUsed: 104, temporaryCapacity: 20 }
+      ];
+      const batches = [
+        { batchId: 'BAT-240321-WHT-01', cropType: 'Wheat', centreId: 'centre-01', date: '21 Mar 2024', status: 'Open' },
+        { batchId: 'BAT-240321-SOY-02', cropType: 'Soybean', centreId: 'centre-02', date: '21 Mar 2024', status: 'Open' },
+        { batchId: 'BAT-240320-WHT-04', cropType: 'Wheat', centreId: 'centre-03', date: '20 Mar 2024', status: 'Closed' }
+      ];
+      const tokens = [
+        { tokenId: 'TKN-0452', farmerName: 'Ramesh Kumar', kisaanCode: 'KIS-24-05821', requestedQty: 40, requestedSlot: '09:00 – 10:00 AM', centreId: 'centre-01', status: 'pending' },
+        { tokenId: 'TKN-0453', farmerName: 'Sita Bai', kisaanCode: 'KIS-24-06118', requestedQty: 55, requestedSlot: '10:00 – 11:00 AM', centreId: 'centre-01', status: 'pending' },
+        { tokenId: 'TKN-0454', farmerName: 'Mohan Patel', kisaanCode: 'KIS-24-05204', requestedQty: 32, requestedSlot: '11:00 AM – 12:00 PM', centreId: 'centre-02', status: 'pending' },
+        { tokenId: 'TKN-0449', farmerName: 'Anita Verma', kisaanCode: 'KIS-24-05697', requestedQty: 38, requestedSlot: '08:00 – 09:00 AM', centreId: 'centre-02', status: 'approved' }
+      ];
+      const farmers = [
+        { kisaanCode: 'KIS-24-05821', name: 'Ramesh Kumar', cropType: 'Wheat', centreId: 'centre-01', status: 'Token Pending' },
+        { kisaanCode: 'KIS-24-05697', name: 'Anita Verma', cropType: 'Wheat', centreId: 'centre-02', status: 'Token Approved' },
+        { kisaanCode: 'KIS-24-06118', name: 'Sita Bai', cropType: 'Soybean', centreId: 'centre-01', status: 'Weighing in Progress' },
+        { kisaanCode: 'KIS-24-04981', name: 'Dinesh Singh', cropType: 'Maize', centreId: 'centre-03', status: 'Weighing Completed' },
+        { kisaanCode: 'KIS-24-04312', name: 'Kavita Bai', cropType: 'Wheat', centreId: 'centre-01', status: 'Payment Confirmed' }
+      ];
+      const expectedQuantities = [
+        { centreId: 'centre-01', Wheat: 180, Soybean: 95, Maize: 45 },
+        { centreId: 'centre-02', Wheat: 110, Soybean: 72, Maize: 20 },
+        { centreId: 'centre-03', Wheat: 64, Soybean: 28, Maize: 35 }
+      ];
+      const state = { selectedBatchId: batches[0].batchId };
+      const byId = (id) => document.getElementById(id);
+      const formatQuantity = (value) => `${Number(value || 0).toLocaleString('en-IN')} q`;
+      const getCentre = (centreId) => centres.find((centre) => centre.id === centreId);
+      const getTotalCapacity = (centre) => centre.dailyCapacity + (centre.temporaryCapacity || 0);
+      const escapeHtml = (value) => String(value).replace(/[&<>'"]/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[character]));
+
+      function showMessage(message, type = 'success') {
+        const element = byId('global-message');
+        element.textContent = message;
+        element.className = `mb-5 flex items-start gap-2 rounded-md border px-3 py-2.5 text-[11px] ${type === 'error' ? 'border-[#efc6bc] bg-[#fff0ed] text-[#a33e32]' : 'border-[#c4d9e8] bg-[#eef6fb] text-portal-officer'}`;
+      }
+
+      function updateSummary() {
+        const totalCapacity = centres.reduce((sum, centre) => sum + getTotalCapacity(centre), 0);
+        const usedCapacity = centres.reduce((sum, centre) => sum + centre.capacityUsed, 0);
+        const expected = expectedQuantities.reduce((sum, row) => sum + row.Wheat + row.Soybean + row.Maize, 0);
+        const pending = tokens.filter((token) => token.status === 'pending').length;
+        byId('stat-capacity').textContent = formatQuantity(totalCapacity);
+        byId('stat-used').textContent = formatQuantity(usedCapacity);
+        byId('stat-expected').textContent = formatQuantity(expected);
+        byId('stat-pending').textContent = pending;
+        byId('token-queue-count').textContent = `${pending} pending`;
+      }
+
+      function renderCentres() {
+        byId('centre-list').innerHTML = centres.map((centre) => {
+          const total = getTotalCapacity(centre);
+          const percent = Math.min(100, Math.round((centre.capacityUsed / total) * 100));
+          return `<article class="rounded-md border border-[#e4ece7] bg-[#fbfdfc] p-4"><div class="flex flex-col justify-between gap-3 sm:flex-row sm:items-start"><div><h4 class="text-[13px] font-bold text-portal-navy">${escapeHtml(centre.name)}</h4><p class="mt-1 text-[10px] text-slate-500">${escapeHtml(centre.location)}</p></div><span class="w-fit rounded-full ${percent >= 90 ? 'bg-[#fff0ed] text-[#a33e32]' : 'bg-[#eef6fb] text-portal-officer'} px-2.5 py-1 text-[9px] font-bold">${percent}% used</span></div><div class="mt-4"><div class="mb-1.5 flex justify-between text-[10px]"><span class="font-semibold text-slate-600">Daily capacity used</span><strong class="text-portal-navy">${formatQuantity(centre.capacityUsed)} / ${formatQuantity(total)}</strong></div><div class="h-2 overflow-hidden rounded-full bg-[#e8eff3]"><div class="h-full rounded-full ${percent >= 90 ? 'bg-[#cf604e]' : 'bg-portal-officer'} transition-all" style="width: ${percent}%"></div></div></div><div class="mt-4 grid gap-3 border-t border-[#e4ece7] pt-4 sm:grid-cols-[1fr_auto] sm:items-end"><label><span class="mb-1.5 block text-[10px] font-bold text-slate-600">Base daily capacity (qtl)</span><input data-capacity-input="${centre.id}" class="h-9 w-full rounded-md border border-[#cbdde8] bg-white px-3 text-[12px] font-semibold text-portal-navy focus:border-portal-officer focus:outline-none focus:ring-2 focus:ring-[#c4d9e8]" type="number" min="0" step="1" value="${centre.dailyCapacity}" /></label><button data-save-capacity="${centre.id}" class="inline-flex h-9 items-center justify-center rounded-md border border-[#c4d9e8] px-3 text-[10px] font-bold text-portal-officer transition hover:bg-[#eef6fb]">Save</button></div>${centre.temporaryCapacity ? `<p class="mt-3 text-[10px] text-portal-green-dark"><strong>+${centre.temporaryCapacity} qtl</strong> temporary capacity active today</p>` : ''}<button data-toggle-increase="${centre.id}" class="mt-4 text-[10px] font-bold text-portal-officer underline decoration-[#b9d2e4] underline-offset-2">Increase Capacity for Today</button><div data-increase-form="${centre.id}" class="mt-3 hidden rounded-md border border-[#c4d9e8] bg-[#eef6fb] p-3"><label class="block"><span class="mb-1.5 block text-[10px] font-bold text-slate-600">Additional capacity (qtl)</span><input data-increase-amount="${centre.id}" class="h-9 w-full rounded-md border border-[#cbdde8] bg-white px-3 text-[12px] text-portal-navy focus:border-portal-officer focus:outline-none focus:ring-2 focus:ring-[#c4d9e8]" type="number" min="1" step="1" placeholder="e.g. 50" /></label><label class="mt-3 block"><span class="mb-1.5 block text-[10px] font-bold text-slate-600">Operational reason</span><textarea data-increase-reason="${centre.id}" class="min-h-16 w-full resize-y rounded-md border border-[#cbdde8] bg-white px-3 py-2 text-[11px] text-portal-navy focus:border-portal-officer focus:outline-none focus:ring-2 focus:ring-[#c4d9e8]" placeholder="Add a short note for this one-day increase"></textarea></label><div class="mt-3 flex gap-2"><button data-confirm-increase="${centre.id}" class="inline-flex h-9 items-center justify-center rounded-md bg-portal-officer px-3 text-[10px] font-bold text-white transition hover:bg-[#1d5a98]">Apply increase</button><button data-toggle-increase="${centre.id}" class="h-9 rounded-md border border-[#c4d9e8] px-3 text-[10px] font-bold text-portal-officer">Cancel</button></div></div></article>`;
+        }).join('');
+      }
+
+      function renderExpectedQuantities() {
+        byId('expected-table').innerHTML = expectedQuantities.map((row) => { const centre = getCentre(row.centreId); const total = row.Wheat + row.Soybean + row.Maize; return `<tr class="border-b border-[#edf1ef] text-[11px] last:border-0"><td class="py-3 pr-4"><strong class="block text-portal-navy">${escapeHtml(centre.name)}</strong><span class="mt-0.5 block text-[9px] text-slate-400">${escapeHtml(centre.location)}</span></td><td class="py-3 pr-4 font-semibold text-slate-600">${formatQuantity(row.Wheat)}</td><td class="py-3 pr-4 font-semibold text-slate-600">${formatQuantity(row.Soybean)}</td><td class="py-3 pr-4 font-semibold text-slate-600">${formatQuantity(row.Maize)}</td><td class="py-3 text-right font-bold text-portal-orange">${formatQuantity(total)}</td></tr>`; }).join('');
+      }
+
+      function renderBatchOptions() {
+        byId('batch-select').innerHTML = batches.map((batch) => `<option value="${escapeHtml(batch.batchId)}">${escapeHtml(batch.batchId)} · ${escapeHtml(batch.cropType)}</option>`).join('');
+        byId('batch-select').value = state.selectedBatchId;
+        renderBatchDetail();
+      }
+
+      function renderBatchDetail() {
+        const batch = batches.find((item) => item.batchId === state.selectedBatchId);
+        if (!batch) { byId('batch-detail').textContent = 'Select a batch to view its details.'; return; }
+        const centre = getCentre(batch.centreId);
+        byId('batch-detail').innerHTML = `<div class="flex items-start justify-between gap-3"><div><strong class="block text-[12px] text-portal-navy">${escapeHtml(batch.batchId)}</strong><span class="mt-1 block text-[10px] text-slate-500">${escapeHtml(batch.cropType)} · ${escapeHtml(centre.name)}</span></div><span class="rounded-full ${batch.status === 'Open' ? 'bg-[#eef6fb] text-portal-officer' : 'bg-[#f1f3f3] text-slate-500'} px-2 py-1 text-[9px] font-bold">${escapeHtml(batch.status)}</span></div><div class="mt-3 grid grid-cols-2 gap-2 border-t border-[#e4ece7] pt-3 text-[10px]"><span class="text-slate-400">Date <strong class="ml-1 text-slate-600">${escapeHtml(batch.date)}</strong></span><span class="text-right text-slate-400">Centre <strong class="ml-1 text-slate-600">${escapeHtml(centre.id.replace('centre-', 'C-'))}</strong></span></div>`;
+      }
+
+      function tokenStatusClass(status) {
+        if (status === 'approved') return 'bg-[#edf7f1] text-portal-green-dark';
+        if (status === 'rejected') return 'bg-[#fff0ed] text-[#a33e32]';
+        return 'bg-[#fff4e8] text-[#a86627]';
+      }
+
+      function renderTokens() {
+        byId('token-table').innerHTML = tokens.map((token) => `<tr class="border-b border-[#edf1ef] text-[11px] last:border-0"><td class="py-3 pr-4"><strong class="block text-portal-navy">${escapeHtml(token.farmerName)}</strong><span class="mt-0.5 block text-[9px] text-slate-400">${escapeHtml(token.tokenId)}</span></td><td class="py-3 pr-4 font-semibold text-slate-600">${escapeHtml(token.kisaanCode)}</td><td class="py-3 pr-4 text-slate-500">${escapeHtml(token.requestedSlot)}</td><td class="py-3 pr-4 font-semibold text-slate-600">${formatQuantity(token.requestedQty)}</td><td class="py-3 pr-4"><span class="rounded-full px-2 py-1 text-[9px] font-bold ${tokenStatusClass(token.status)}">${escapeHtml(token.status)}</span></td><td class="py-3 text-right"><div class="flex justify-end gap-2">${token.status === 'pending' ? `<button data-approve-token="${token.tokenId}" class="rounded-md bg-portal-green px-2.5 py-1.5 text-[9px] font-bold text-white transition hover:bg-portal-green-dark">Approve</button><button data-reject-token="${token.tokenId}" class="rounded-md border border-[#efc6bc] px-2.5 py-1.5 text-[9px] font-bold text-[#a33e32] transition hover:bg-[#fff0ed]">Reject</button>` : '<span class="text-[9px] text-slate-400">No action</span>'}</div></td></tr>`).join('');
+      }
+
+      function farmerStatusClass(status) {
+        if (status === 'Payment Confirmed') return 'bg-[#edf7f1] text-portal-green-dark';
+        if (status === 'Weighing Completed') return 'bg-[#eef6fb] text-portal-officer';
+        if (status === 'Weighing in Progress') return 'bg-[#fff4e8] text-[#a86627]';
+        return 'bg-[#f1f3f3] text-slate-500';
+      }
+
+      function renderFarmers() {
+        byId('farmer-table').innerHTML = farmers.map((farmer) => { const centre = getCentre(farmer.centreId); return `<tr class="border-b border-[#edf1ef] text-[11px] last:border-0"><td class="py-3 pr-4 font-bold text-portal-navy">${escapeHtml(farmer.name)}</td><td class="py-3 pr-4 font-semibold text-slate-600">${escapeHtml(farmer.kisaanCode)}</td><td class="py-3 pr-4 text-slate-500">${escapeHtml(farmer.cropType)}</td><td class="py-3 pr-4 text-slate-500">${escapeHtml(centre.name)}</td><td class="py-3"><span class="rounded-full px-2 py-1 text-[9px] font-bold ${farmerStatusClass(farmer.status)}">${escapeHtml(farmer.status)}</span></td></tr>`; }).join('');
+      }
+
+      function updateCentreCapacity(centreId, capacity) {
+        return new Promise((resolve) => window.setTimeout(() => { const centre = getCentre(centreId); centre.dailyCapacity = capacity; resolve(centre); }, 450));
+      }
+
+      function createBatch(details) {
+        return new Promise((resolve) => window.setTimeout(() => { const batch = { batchId: details.batchId, cropType: details.cropType, centreId: details.centreId, date: new Date(`${details.date}T00:00:00`).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }), status: 'Open' }; batches.unshift(batch); resolve(batch); }, 600));
+      }
+
+      function approveToken(tokenId) {
+        return new Promise((resolve) => window.setTimeout(() => { const token = tokens.find((item) => item.tokenId === tokenId); token.status = 'approved'; const farmer = farmers.find((item) => item.kisaanCode === token.kisaanCode); if (farmer) farmer.status = 'Token Approved'; resolve(token); }, 450));
+      }
+
+      function rejectToken(tokenId) {
+        return new Promise((resolve) => window.setTimeout(() => { const token = tokens.find((item) => item.tokenId === tokenId); token.status = 'rejected'; const farmer = farmers.find((item) => item.kisaanCode === token.kisaanCode); if (farmer) farmer.status = 'Request Rejected'; resolve(token); }, 450));
+      }
+
+      function increaseCapacity(centreId, amount, reason) {
+        return new Promise((resolve) => window.setTimeout(() => { const centre = getCentre(centreId); centre.temporaryCapacity = (centre.temporaryCapacity || 0) + amount; centre.temporaryReason = reason; resolve(centre); }, 500));
+      }
+
+      async function saveCapacity(centreId) {
+        const input = document.querySelector(`[data-capacity-input="${centreId}"]`);
+        const capacity = Number(input.value);
+        if (!Number.isFinite(capacity) || capacity < 0) { showMessage('Daily capacity cannot be negative. Enter a valid number.', 'error'); input.focus(); return; }
+        const button = document.querySelector(`[data-save-capacity="${centreId}"]`);
+        button.disabled = true;
+        button.textContent = 'Saving…';
+        await updateCentreCapacity(centreId, capacity);
+        renderCentres();
+        updateSummary();
+        showMessage(`${getCentre(centreId).name} base capacity saved at ${formatQuantity(capacity)}.`);
+      }
+
+      async function applyCapacityIncrease(centreId) {
+        const amountInput = document.querySelector(`[data-increase-amount="${centreId}"]`);
+        const reasonInput = document.querySelector(`[data-increase-reason="${centreId}"]`);
+        const amount = Number(amountInput.value);
+        const reason = reasonInput.value.trim();
+        if (!Number.isFinite(amount) || amount <= 0) { showMessage('Enter a positive temporary capacity increase.', 'error'); amountInput.focus(); return; }
+        if (!reason) { showMessage('Add an operational reason for the temporary capacity increase.', 'error'); reasonInput.focus(); return; }
+        const button = document.querySelector(`[data-confirm-increase="${centreId}"]`);
+        button.disabled = true;
+        button.textContent = 'Applying…';
+        await increaseCapacity(centreId, amount, reason);
+        renderCentres();
+        updateSummary();
+        showMessage(`${getCentre(centreId).name} increased by ${formatQuantity(amount)} for today.`);
+      }
+
+      byId('batch-form').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const cropType = byId('batch-crop').value;
+        const centreId = byId('batch-centre').value;
+        const date = byId('batch-date').value;
+        if (!cropType || !centreId || !date) { showMessage('Select a crop, centre, and batch date before creating a batch.', 'error'); return; }
+        const button = byId('create-batch');
+        button.disabled = true;
+        byId('create-batch-text').textContent = 'Creating…';
+        byId('batch-spinner').classList.remove('hidden');
+        const batch = await createBatch({ batchId: byId('batch-id').value, cropType, centreId, date });
+        state.selectedBatchId = batch.batchId;
+        renderBatchOptions();
+        button.disabled = false;
+        byId('create-batch-text').textContent = 'Create batch';
+        byId('batch-spinner').classList.add('hidden');
+        byId('batch-crop').value = '';
+        byId('batch-centre').value = '';
+        byId('batch-date').value = '2024-03-21';
+        byId('batch-id').value = generateBatchId();
+        showMessage(`${batch.batchId} created and ready for token allocation.`);
+      });
+
+      function generateBatchId() {
+        return `BAT-240321-${String(batches.length + 1).padStart(2, '0')}`;
+      }
+
+      document.addEventListener('click', async (event) => {
+        const target = event.target.closest('button');
+        if (!target) return;
+        if (target.dataset.saveCapacity) await saveCapacity(target.dataset.saveCapacity);
+        if (target.dataset.toggleIncrease) { const form = document.querySelector(`[data-increase-form="${target.dataset.toggleIncrease}"]`); form.classList.toggle('hidden'); }
+        if (target.dataset.confirmIncrease) await applyCapacityIncrease(target.dataset.confirmIncrease);
+        if (target.dataset.approveToken) { target.disabled = true; target.textContent = 'Approving…'; await approveToken(target.dataset.approveToken); renderTokens(); renderFarmers(); updateSummary(); showMessage('Token approved and farmer pipeline updated.'); }
+        if (target.dataset.rejectToken) { target.disabled = true; target.textContent = 'Rejecting…'; await rejectToken(target.dataset.rejectToken); renderTokens(); renderFarmers(); updateSummary(); showMessage('Token rejected and farmer pipeline updated.'); }
+      });
+
+      byId('batch-select').addEventListener('change', (event) => { state.selectedBatchId = event.target.value; renderBatchDetail(); });
+      byId('batch-id').value = generateBatchId();
+      byId('batch-centre').innerHTML += centres.map((centre) => `<option value="${centre.id}">${escapeHtml(centre.name)}</option>`).join('');
+      renderCentres();
+      renderExpectedQuantities();
+      renderBatchOptions();
+      renderTokens();
+      renderFarmers();
+      updateSummary();
+    </script>
+  </body>
+</html>
