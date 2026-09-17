@@ -17,6 +17,7 @@ const FarmerLogin = lazy(() => import("./pages/AuthPages").then((module) => ({ d
 const StaffLogin = lazy(() => import("./pages/AuthPages").then((module) => ({ default: module.StaffLogin })));
 const PortalPlaceholder = lazy(() => import("./pages/AuthPages").then((module) => ({ default: module.PortalPlaceholder })));
 const BookSlot = lazy(() => import("./pages/BookSlot"));
+const BookToken = lazy(() => import("./pages/BookToken"));
 const OfficerDashboard = lazy(() => import("./pages/OfficerDashboard"));
 const OperatorDashboard = lazy(() => import("./pages/OperatorDashboard"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
@@ -50,6 +51,7 @@ const App = () => (
               <Route path="/login/officer" element={<AuthRoute page="staff" />} />
               <Route path="/login/operator" element={<AuthRoute page="staff" />} />
               <Route path="/farmer/book-slot" element={<BookSlot />} />
+              <Route path="/farmer/book-token" element={<BookToken />} />
               <Route path="/officer/dashboard" element={<OfficerDashboard />} />
               <Route path="/officer/*" element={<OfficerDashboard />} />
               <Route path="/operator/dashboard" element={<OperatorDashboard />} />
