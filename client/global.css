@@ -2,7 +2,7 @@
 @import 'tailwindcss';
 @config '../tailwind.config.ts';
 
-:root { --navy: #102a43; --navy-deep: #0b2034; --green: #138a57; --green-dark: #0b7145; --orange: #ee8b35; --saffron: #ef8b35; --cream: #f7f9f7; --line: #dfe8e3; --muted: #6a7b83; --ink: #173044; --white: #fff; }
+:root { --navy: #102a43; --navy-deep: #0b2034; --red: #138a57; --green-dark: #0b7145; --orange: #ee8b35; --saffron: #ef8b35; --cream: #f7f9f7; --line: #dfe8e3; --muted: #6a7b83; --ink: #173044; --white: #fff; }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--cream); color: var(--ink); font-family: sans-serif; }
 button, input, select { font: inherit; } button { cursor: pointer; } button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid #f1a04b; outline-offset: 2px; } button:disabled { cursor: not-allowed; opacity: .62; }.large-text { zoom: 1.08; }
