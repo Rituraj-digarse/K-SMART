@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { ArrowRight, CalendarDays, Check, CheckCircle2, Info, Leaf, MapPin, PackageCheck, Warehouse } from "lucide-react";
 import { BackButton } from "@/components/BackButton";
 import { DateAvailability, getDateAvailability, getDateRange, parseDateLabel, useAuth } from "@/context/AuthContext";
@@ -13,7 +13,10 @@ const availabilityCopy: Record<DateAvailability, { label: string; className: str
 
 export default function BookToken() {
   const { currentUser, slot, centres, policy, records, tokens, requestToken } = useAuth();
+  const location = useLocation();
   const navigate = useNavigate();
+  const routedSlotId = (location.state as { slotId?: string } | null)?.slotId;
+  const hasRoutedSlot = routedSlotId === slot.id;
   const centre = centres.find((item) => item.id === slot.centreId) || centres[0];
   const remainingEligible = Math.max(0, farmer.verifiedLandArea * policy.procurementLimitPerAcre - records.reduce((sum, record) => sum + record.quantity, 0));
   const dateOptions = useMemo(() => getDateRange(slot.startDate, slot.endDate).filter((date) => parseDateLabel(date) > parseDateLabel("21 Mar 2024")), [slot.startDate, slot.endDate]);
@@ -33,9 +36,9 @@ export default function BookToken() {
   const chooseDate = (date: string, status: DateAvailability) => { if (status === "Full") return; setSelectedDate(date); setError(""); goToStep(2); };
   const submitToken = () => { if (!centre || !selectedDate) { setError("Choose a visit date to continue."); return; } if (quantityError) { setError(quantityError); return; } setSubmitting(true); const result = requestToken({ farmerId: farmer.id, centreId: centre.id, requestedDate: selectedDate, expectedQuantity: quantity }); setSubmitting(false); if (!result.ok || !result.token) { setError(result.error || "Could not request a Token."); return; } setConfirmedToken(result.token.shortReference); };
 
-  if (slot.status !== "Active" || isExpired || remainingEligible <= 0) {
+  if ((!hasRoutedSlot && (slot.status !== "Active" || isExpired)) || remainingEligible <= 0) {
     const message = slot.status !== "Active" ? "You need an active Slot before booking a Token." : isExpired ? "Your Slot has expired. Please book a new Slot." : "You have no remaining eligible quantity to procure.";
-    return <div className="booking-page"><div className="demo-mode-banner" role="status">Demo Mode · Simulated data for SIH26032 prototype</div><div className="tricolor" /><main className="booking-wrap"><BackButton to="/" /><div className="booking-success booking-gate" role="alert"><div className="success-check"><Info size={32} /></div><span className="eyebrow">TOKEN BOOKING</span><h1>{message}</h1><p>{slot.status !== "Active" || isExpired ? "Start a new Slot before choosing a warehouse visit." : "Your eligible quantity has already been allocated."}</p>{(slot.status !== "Active" || isExpired) && <Link className="primary-button" to="/farmer/book-slot">Book a New Slot <ArrowRight size={16} /></Link>}<button className="outline-button" onClick={() => navigate("/")}>Back to Dashboard</button></div></main></div>;
+    return <div className="booking-page"><div className="demo-mode-banner" role="status">Demo Mode · Simulated data for SIH26032 prototype</div><div className="tricolor" /><main className="booking-wrap"><BackButton to="/" /><div className="booking-success booking-gate" role="alert"><div className="success-check"><Info size={32} /></div><span className="eyebrow">TOKEN BOOKING</span><h1>{message}</h1><p>{!hasRoutedSlot && (slot.status !== "Active" || isExpired) ? "Start a new Slot before choosing a warehouse visit." : "Your eligible quantity has already been allocated."}</p>{!hasRoutedSlot && (slot.status !== "Active" || isExpired) && <Link className="primary-button" to="/farmer/book-slot">Book a New Slot <ArrowRight size={16} /></Link>}<button className="outline-button" onClick={() => navigate("/")}>Back to Dashboard</button></div></main></div>;
   }
 
   if (confirmedToken) return <div className="booking-page"><div className="demo-mode-banner" role="status">Demo Mode · Simulated data for SIH26032 prototype</div><div className="tricolor" /><main className="booking-wrap"><BackButton to="/" label="Back to dashboard" /><div className="booking-success" role="status"><div className="success-check"><Check size={35} /></div><span className="eyebrow">TOKEN REQUEST SENT</span><h1>Your Token request is under review</h1><p>The Procurement Officer will review your request and notify you once it is approved.</p><div className="success-details"><div><span>Token reference</span><strong>{confirmedToken}</strong></div><div><span>Requested date</span><strong>{selectedDate}</strong></div><div><span>Status</span><strong className="success-reference">Waiting for Approval</strong></div></div><div className="success-reference"><CheckCircle2 size={15} /> Keep your Kisaan Code ready for your approved visit.</div><div className="success-actions"><button className="primary-button" onClick={() => navigate("/")}>Track Status <ArrowRight size={16} /></button><button className="outline-button" onClick={() => navigate("/")}>Back to Dashboard</button></div></div></main></div>;
