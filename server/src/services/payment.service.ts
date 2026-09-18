@@ -1,0 +1,1 @@
+import {PaymentModel} from '../models/payment.model.js'; export const PaymentService={async farmer(id:string){return PaymentModel.byFarmer(id)},async markPaid(id:string){return PaymentModel.markPaid(id)}};

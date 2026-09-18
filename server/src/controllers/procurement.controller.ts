@@ -1,0 +1,1 @@
+import {Response,NextFunction} from 'express';import {ProcurementService} from '../services/procurement.service.js';import {ok} from '../utils/response.js';export const ProcurementController={async mine(req:any,res:Response,next:NextFunction){try{ok(res,await ProcurementService.farmer(req.user.id))}catch(e){next(e)}}};

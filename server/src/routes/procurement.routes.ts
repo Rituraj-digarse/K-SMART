@@ -1,0 +1,1 @@
+import {Router} from 'express';import {ProcurementController} from '../controllers/procurement.controller.js';import {auth} from '../middleware/auth.middleware.js';import {roles} from '../middleware/role.middleware.js';const r=Router();r.get('/my',auth,roles('FARMER'),ProcurementController.mine);export default r;

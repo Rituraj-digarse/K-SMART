@@ -1,0 +1,6 @@
+import {Response,NextFunction} from 'express';import {query} from '../config/database.js';import {CentreService} from '../services/centre.service.js';import {ok} from '../utils/response.js';
+export const AdminController={
+ async stats(_req:any,res:Response,next:NextFunction){try{const r=await query(`select (select count(*) from users)::int users,(select count(*) from farmers)::int farmers,(select count(*) from centres where active=true)::int active_centres,(select count(*) from slots where status='ACTIVE')::int active_slots,(select count(*) from tokens where status not in ('CANCELLED','EXPIRED','PROCURED'))::int open_tokens,(select count(*) from procurement)::int procurements,(select count(*) from payments where status='PAID')::int paid_payments`);ok(res,r.rows[0])}catch(e){next(e)}},
+ async users(_req:any,res:Response,next:NextFunction){try{ok(res,(await query('select id,mobile,role,status,created_at from users order by created_at desc')).rows)}catch(e){next(e)}},
+ async capacity(req:any,res:Response,next:NextFunction){try{ok(res,await CentreService.updateCapacity(req.body.centreId,Number(req.body.dailyCapacity)),'Capacity updated')}catch(e){next(e)}}
+};

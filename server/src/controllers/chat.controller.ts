@@ -1,0 +1,1 @@
+import {Response,NextFunction} from 'express';import {ChatService} from '../services/chat.service.js';import {ok} from '../utils/response.js';export const ChatController={async chat(req:any,res:Response,next:NextFunction){try{if(!req.body.message)throw new Error('message is required');ok(res,await ChatService.chat(req.user.id,req.body.message))}catch(e){next(e)}}};

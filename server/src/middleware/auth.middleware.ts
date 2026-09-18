@@ -1,0 +1,2 @@
+import {Response,NextFunction} from 'express'; import {AuthedRequest,AppError} from '../types/index.js'; import {verifyToken} from '../utils/jwt.js';
+export function auth(req:AuthedRequest,_res:Response,next:NextFunction){try{const h=req.headers.authorization;if(!h?.startsWith('Bearer '))throw new AppError('Authentication required',401,'UNAUTHORIZED'); req.user=verifyToken(h.slice(7)) as any; next()}catch(e){next(e)}}

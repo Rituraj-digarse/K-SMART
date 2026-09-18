@@ -1,0 +1,1 @@
+import {Router} from 'express';import {ChatController} from '../controllers/chat.controller.js';import {auth} from '../middleware/auth.middleware.js';const r=Router();r.post('/',auth,ChatController.chat);export default r;

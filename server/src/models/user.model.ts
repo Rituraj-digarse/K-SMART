@@ -1,0 +1,2 @@
+import {query} from '../config/database.js';
+export const UserModel={async findByMobile(m:string){const r=await query('select * from users where mobile=$1',[m]);return r.rows[0]},async findById(id:string){const r=await query('select id,mobile,role,status,created_at,updated_at from users where id=$1',[id]);return r.rows[0]},async create(mobile:string,role='FARMER'){const r=await query('insert into users(mobile,role) values($1,$2) returning *',[mobile,role]);return r.rows[0]}};
