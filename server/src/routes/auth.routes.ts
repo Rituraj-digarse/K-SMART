@@ -1,0 +1,1 @@
+import {Router} from 'express';import {AuthController} from '../controllers/auth.controller.js';import {auth} from '../middleware/auth.middleware.js';const r=Router();r.post('/send-otp',AuthController.send);r.post('/verify-otp',AuthController.verify);r.get('/me',auth,AuthController.me);export default r;

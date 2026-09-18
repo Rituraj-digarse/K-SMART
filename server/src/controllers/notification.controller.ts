@@ -1,0 +1,1 @@
+import {Response,NextFunction} from 'express';import {NotificationService} from '../services/notification.service.js';import {ok} from '../utils/response.js';export const NotificationController={async list(req:any,res:Response,next:NextFunction){try{ok(res,await NotificationService.list(req.user.id))}catch(e){next(e)}}};

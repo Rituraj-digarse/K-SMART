@@ -1,0 +1,1 @@
+import {Router} from 'express';import {NotificationController} from '../controllers/notification.controller.js';import {auth} from '../middleware/auth.middleware.js';const r=Router();r.get('/',auth,NotificationController.list);export default r;
