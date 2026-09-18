@@ -3,6 +3,7 @@ import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { ArrowRight, CheckCircle2, Eye, EyeOff, KeyRound, Leaf, LockKeyhole, Phone, ShieldCheck } from "lucide-react";
 import { useAuth, type Role } from "@/context/AuthContext";
 import { BackButton } from "@/components/BackButton";
+import { apiRequest } from "@/lib/api";
 
 const roleInfo = {
   farmer: { title: "Farmer Login", subtitle: "Access your procurement slot, token and payment details", icon: "👨‍🌾", label: "Farmer portal" },
@@ -21,11 +22,53 @@ export function RoleSelection() {
 }
 
 export function FarmerLogin() {
-  const navigate = useNavigate(); const { loginFarmer } = useAuth(); const [mobile, setMobile] = useState(""); const [otp, setOtp] = useState(""); const [sent, setSent] = useState(false); const [cooldown, setCooldown] = useState(0); const [error, setError] = useState("");
+  const navigate = useNavigate(); const { loginFarmer } = useAuth(); const [mobile, setMobile] = useState(""); const [otp, setOtp] = useState(""); const [sent, setSent] = useState(false); const [cooldown, setCooldown] = useState(0); const [error, setError] = useState(""); const [submitting, setSubmitting] = useState(false);
   useEffect(() => { if (!cooldown) return; const timer = window.setInterval(() => setCooldown((value) => value - 1), 1000); return () => window.clearInterval(timer); }, [cooldown]);
-  const sendOtp = () => { if (!/^\d{10}$/.test(mobile)) { setError("Enter a valid 10-digit mobile number."); return; } setError(""); setSent(true); setCooldown(30); };
-  const verify = () => { const result = loginFarmer(mobile, otp); if (!result.ok) setError(result.error || "Unable to verify OTP."); else navigate("/"); };
-  return <AuthFrame role="farmer" title="Farmer Login" subtitle="Use your registered mobile number to continue."><div className="simple-form"><label>Mobile number<input aria-label="10-digit mobile number" aria-invalid={Boolean(error && !sent)} inputMode="numeric" maxLength={10} value={mobile} onChange={(event) => { setError(""); setMobile(event.target.value.replace(/\D/g, "")); }} placeholder="Enter 10-digit mobile number" /></label><button className="primary-button auth-button" onClick={sendOtp} disabled={sent && cooldown > 0}>{sent ? cooldown ? `Resend OTP in ${cooldown}s` : "Resend OTP" : "Send OTP"}<ArrowRight size={16} /></button>{sent && <div className="otp-block"><div className="demo-note"><CheckCircle2 size={15} /> Demo OTP: <strong>123456</strong></div><label>Enter 6-digit OTP<input aria-label="6-digit one-time password" aria-invalid={Boolean(error && sent)} inputMode="numeric" maxLength={6} value={otp} onChange={(event) => { setError(""); setOtp(event.target.value.replace(/\D/g, "")); }} placeholder="• • • • • •" /></label><button className="primary-button auth-button" onClick={verify}>Verify & Login <ArrowRight size={16} /></button></div>}{error && <div className="form-error" role="alert">{error}{error.includes("No registered") && <Link to="/roles"> Choose another portal</Link>}</div>}</div><div className="auth-note left"><LockKeyhole size={14} /> We will never ask for your OTP over a phone call.</div></AuthFrame>;
+
+  const sendOtp = async () => {
+    const normalizedMobile = mobile.replace(/\D/g, "");
+    if (!/^\d{10}$/.test(normalizedMobile)) {
+      setError("Enter a valid 10-digit mobile number.");
+      return;
+    }
+
+    setError("");
+    setSubmitting(true);
+
+    try {
+      await apiRequest<{ success: boolean; message?: string }>("/auth/send-otp", {
+        method: "POST",
+        body: JSON.stringify({ mobile: normalizedMobile }),
+      });
+      setSent(true);
+      setCooldown(30);
+    } catch (requestError) {
+      setError(requestError instanceof Error ? requestError.message : "Unable to send OTP. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const verify = async () => {
+    if (!/^\d{6}$/.test(otp)) {
+      setError("Enter the 6-digit OTP to continue.");
+      return;
+    }
+
+    setError("");
+    setSubmitting(true);
+    const result = await loginFarmer(mobile, otp);
+    setSubmitting(false);
+
+    if (!result.ok) {
+      setError(result.error || "Unable to verify OTP.");
+      return;
+    }
+
+    navigate("/");
+  };
+
+  return <AuthFrame role="farmer" title="Farmer Login" subtitle="Use your registered mobile number to continue."><div className="simple-form"><label>Mobile number<input aria-label="10-digit mobile number" aria-invalid={Boolean(error && !sent)} inputMode="numeric" maxLength={10} value={mobile} onChange={(event) => { setError(""); setMobile(event.target.value.replace(/\D/g, "")); }} placeholder="Enter 10-digit mobile number" /></label><button className="primary-button auth-button" onClick={sendOtp} disabled={submitting || (sent && cooldown > 0)}>{submitting ? "Sending…" : sent ? cooldown ? `Resend OTP in ${cooldown}s` : "Resend OTP" : "Send OTP"}<ArrowRight size={16} /></button>{sent && <div className="otp-block"><div className="demo-note"><CheckCircle2 size={15} /> Demo OTP is available in the backend console for this local setup.</div><label>Enter 6-digit OTP<input aria-label="6-digit one-time password" aria-invalid={Boolean(error && sent)} inputMode="numeric" maxLength={6} value={otp} onChange={(event) => { setError(""); setOtp(event.target.value.replace(/\D/g, "")); }} placeholder="• • • • • •" /></label><button className="primary-button auth-button" onClick={verify} disabled={submitting}>{submitting ? "Verifying…" : "Verify & Login"} <ArrowRight size={16} /></button></div>}{error && <div className="form-error" role="alert">{error}{error.includes("No registered") && <Link to="/roles"> Choose another portal</Link>}</div>}</div><div className="auth-note left"><LockKeyhole size={14} /> We will never ask for your OTP over a phone call.</div></AuthFrame>;
 }
 
 export function StaffLogin() {

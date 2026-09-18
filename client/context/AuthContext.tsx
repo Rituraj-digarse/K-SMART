@@ -1,5 +1,9 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { activeSlot as initialSlot, centres as initialCentres, farmer, farmers, govPolicy as initialPolicy, notifications as initialNotifications, payments as initialPayments, procurementRecords as initialRecords, staffCredentials, tokens as initialTokens, type TokenStatus } from "@/data/mockData";
+import { apiRequest } from "@/lib/api";
+
+const AUTH_TOKEN_KEY = "ksmart-auth-token";
+const AUTH_USER_KEY = "uparjan-user";
 
 export type Role = "farmer" | "officer" | "operator" | "admin";
 export type CurrentUser = { id: string; role: Role; name: string; mobile?: string };
@@ -54,7 +58,7 @@ type AuthContextValue = {
   records: LiveRecord[];
   payments: LivePayment[];
   notifications: LiveNotification[];
-  loginFarmer: (mobile: string, otp: string) => ActionResult;
+  loginFarmer: (mobile: string, otp: string) => Promise<ActionResult>;
   loginStaff: (role: Exclude<Role, "farmer">, id: string, password: string) => boolean;
   bookSlot: (input: { farmerId: string; centreId: string; intendedQuantity: number }) => Promise<ActionResult>;
   requestToken: (input: { farmerId: string; centreId: string; requestedDate: string; expectedQuantity: number }) => TokenActionResult;
@@ -69,8 +73,29 @@ type AuthContextValue = {
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
+const normalizeRole = (role?: string): Role => {
+  switch (role) {
+    case "FARMER":
+      return "farmer";
+    case "PROCUREMENT_OFFICER":
+      return "officer";
+    case "CENTRE_OPERATOR":
+      return "operator";
+    case "ADMIN":
+      return "admin";
+    default:
+      return "farmer";
+  }
+};
+
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [currentUser, setCurrentUser] = useState<CurrentUser | null>(() => { try { return JSON.parse(localStorage.getItem("uparjan-user") || "null"); } catch { return null; } });
+  const [currentUser, setCurrentUser] = useState<CurrentUser | null>(() => {
+    try {
+      return JSON.parse(localStorage.getItem(AUTH_USER_KEY) || "null");
+    } catch {
+      return null;
+    }
+  });
   const [slot, setSlot] = useState<LiveSlot>(initialSlot);
   const [tokens, setTokens] = useState<LiveToken[]>(initialTokens);
   const [centres, setCentres] = useState<LiveCentre[]>(initialCentres);
@@ -79,11 +104,75 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [payments, setPayments] = useState<LivePayment[]>(initialPayments);
   const [notifications, setNotifications] = useState<LiveNotification[]>(initialNotifications);
 
-  useEffect(() => { if (currentUser) localStorage.setItem("uparjan-user", JSON.stringify(currentUser)); else localStorage.removeItem("uparjan-user"); }, [currentUser]);
+  useEffect(() => {
+    if (currentUser) {
+      localStorage.setItem(AUTH_USER_KEY, JSON.stringify(currentUser));
+    } else {
+      localStorage.removeItem(AUTH_USER_KEY);
+    }
+  }, [currentUser]);
+
+  useEffect(() => {
+    const token = localStorage.getItem(AUTH_TOKEN_KEY);
+    if (!token) return;
+
+    apiRequest<{ success: boolean; data?: { id: string; mobile: string; role: string; name?: string } }>("/auth/me")
+      .then((response) => {
+        const userData = response?.data ?? null;
+        if (!userData) {
+          localStorage.removeItem(AUTH_TOKEN_KEY);
+          setCurrentUser(null);
+          return;
+        }
+
+        setCurrentUser({
+          id: userData.id,
+          role: normalizeRole(userData.role),
+          name: userData.name || "Farmer",
+          mobile: userData.mobile,
+        });
+      })
+      .catch(() => {
+        localStorage.removeItem(AUTH_TOKEN_KEY);
+        setCurrentUser(null);
+      });
+  }, []);
+
   const notify = (title: string, message: string, farmerId = farmer.id) => setNotifications((items) => [{ channel: "In-App", title, message, time: "Just now", unread: true, farmerId }, ...items]);
   const value = useMemo<AuthContextValue>(() => ({
     currentUser, slot, tokens, centres, policy, records, payments, notifications,
-    loginFarmer: (mobile, otp) => { if (!/^\d{6}$/.test(otp)) return { ok: false, error: "Enter the 6-digit OTP to continue." }; const found = farmers.find((item) => item.mobile === mobile.replace(/\D/g, "")); if (!found) return { ok: false, error: "No registered farmer found with this number." }; setCurrentUser({ id: found.id, role: "farmer", name: found.name, mobile: found.mobile }); return { ok: true }; },
+    loginFarmer: async (mobile, otp) => {
+      if (!/^\d{6}$/.test(otp)) return { ok: false, error: "Enter the 6-digit OTP to continue." };
+
+      try {
+        const payload = await apiRequest<{ success: boolean; data?: { token: string; user: { id: string; mobile: string; role: string; name?: string } } }>("/auth/verify-otp", {
+          method: "POST",
+          body: JSON.stringify({ mobile: mobile.replace(/\D/g, ""), otp, role: "FARMER" }),
+        });
+
+        const user = payload?.data?.user;
+        const token = payload?.data?.token;
+
+        if (!user || !token) {
+          return { ok: false, error: "Authentication failed. Please try again." };
+        }
+
+        localStorage.setItem(AUTH_TOKEN_KEY, token);
+        const nextUser = {
+          id: user.id,
+          role: normalizeRole(user.role),
+          name: user.name || "Farmer",
+          mobile: user.mobile,
+        };
+        setCurrentUser(nextUser);
+        return { ok: true };
+      } catch (error) {
+        return {
+          ok: false,
+          error: error instanceof Error ? error.message : "Unable to verify OTP. Please try again.",
+        };
+      }
+    },
     loginStaff: (role, id, password) => { const found = staffCredentials[role].find((item) => item.id === id && item.password === password); if (!found) return false; setCurrentUser({ id: found.id, role, name: found.name }); return true; },
     bookSlot: async ({ farmerId, centreId, intendedQuantity }) => { await wait(); if (currentUser?.role !== "farmer") return { ok: false, error: "Please sign in as a farmer to book a Slot." }; if (intendedQuantity <= 0) return { ok: false, error: "Enter a quantity greater than zero." }; const centre = centres.find((item) => item.id === centreId); if (!centre) return { ok: false, error: "Choose a procurement centre to continue." }; const nextStart = parseDateLabel(todayLabel); const nextEnd = new Date(nextStart); nextEnd.setUTCDate(nextEnd.getUTCDate() + 8); const nextSlot = { ...initialSlot, id: `slot-${Date.now()}`, farmerId, centreId, intendedQuantity, startDate: formatDateLabel(nextStart), endDate: formatDateLabel(nextEnd), daysRemaining: 9, status: "Active" as const }; setSlot(nextSlot); notify("Slot successfully booked", `Your slot is valid until ${formatDateLabel(nextEnd)}.`, farmerId); return { ok: true, slotId: nextSlot.id }; },
     requestToken: ({ farmerId, centreId, requestedDate, expectedQuantity }) => { if (currentUser?.role !== "farmer") return { ok: false, error: "Please sign in as a farmer to request a Token." }; const existingToken = tokens.find((item) => item.slotId === slot.id && item.farmerId === farmerId && item.status !== "Cancelled"); if (existingToken) return { ok: true, token: existingToken }; const remaining = farmer.verifiedLandArea * policy.procurementLimitPerAcre - records.filter((item) => item.farmerId === farmerId || !item.farmerId).reduce((sum, item) => sum + item.quantity, 0); const visitDate = parseDateLabel(requestedDate); const today = parseDateLabel(todayLabel); const slotStart = parseDateLabel(slot.startDate); const slotEnd = parseDateLabel(slot.endDate); if (slot.status !== "Active") return { ok: false, error: "You need an active Slot before booking a Token." }; if (visitDate <= today || visitDate < slotStart || visitDate > slotEnd) return { ok: false, error: "Choose a visit date inside your active 9-day Slot, at least one day from today." };if (expectedQuantity <= 0 || expectedQuantity > remaining) return { ok: false, error: `Expected quantity must be between 1 and ${remaining} quintals.` }; const availability = getDateAvailability(centreId, requestedDate, tokens, centres); if (availability === "Full") return { ok: false, error: "This date is fully booked. Please choose another day within your Slot validity." }; const dateUsed = tokens.filter((item) => item.centreId === centreId && item.requestedDate === requestedDate && statusTokens.includes(item.status)).reduce((sum, item) => sum + item.expectedQuantity, 0); const centre = centres.find((item) => item.id === centreId); if (!centre || expectedQuantity > centre.dailyWeighingCapacity - dateUsed) return { ok: false, error: "This request exceeds the remaining capacity for the selected date." }; const dailyCount = tokens.filter((item) => item.centreId === centreId && item.requestedDate === requestedDate).length; const next = { id: `token-${Date.now()}`, tokenNumber: `TKN-${centreId}-${requestedDate.replace(/\s/g, "-")}-${String(dailyCount + 1).padStart(4, "0")}`, shortReference: `T-${String(454 + dailyCount).padStart(4, "0")}`, slotId: slot.id, farmerId, centreId, requestedDate, expectedQuantity, status: "Waiting for Approval" as TokenStatus, batchId: null, createdAt: "Just now", approvedAt: null, completedAt: null } as LiveToken; setTokens((items) => [...items, next]); notify("Token requested", "Your request is being reviewed by the Procurement Officer.", farmerId); return { ok: true, token: next }; },
@@ -93,7 +182,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     updateCentre: async (centreId, patch) => { await wait(); if (currentUser?.role !== "admin") return { ok: false, error: "Access denied — insufficient permissions." }; setCentres((items) => items.map((centre) => centre.id === centreId ? { ...centre, ...patch } : centre)); return { ok: true }; },
     addCentre: async (centre) => { await wait(); if (currentUser?.role !== "admin") return { ok: false, error: "Access denied — insufficient permissions." }; setCentres((items) => [...items, { ...centre, id: `centre-${Date.now()}` }]); return { ok: true }; },
     updatePolicy: async (next) => { await wait(); if (currentUser?.role !== "admin") return { ok: false, error: "Access denied — insufficient permissions." }; setPolicy((current) => ({ ...current, ...next })); return { ok: true }; },
-    logout: () => setCurrentUser(null),
+    logout: () => {
+      localStorage.removeItem(AUTH_TOKEN_KEY);
+      setCurrentUser(null);
+    },
   }), [currentUser, slot, tokens, centres, policy, records, payments, notifications]);
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
