@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { BackButton } from "@/components/BackButton";
 import {
   ArrowRight, Bell, CalendarDays, Check, ChevronDown, CircleHelp, Clock3,
@@ -122,7 +122,9 @@ function DetailView({ language, view, onBack }: { language: Language; view: stri
 }
 
 export default function Index() {
-  const [active, setActive] = useState("dashboard");
+  const location = useLocation();
+  const initialView = (location.state as { view?: string } | null)?.view;
+  const [active, setActive] = useState(initialView || "dashboard");
   const [menuOpen, setMenuOpen] = useState(false);
   const [language, setLanguage] = useState<Language>("en");
   const content = useMemo(() => active === "dashboard" ? <Dashboard language={language} onSelect={setActive} /> : <DetailView language={language} view={active} onBack={() => setActive("dashboard")} />, [active, language]);
